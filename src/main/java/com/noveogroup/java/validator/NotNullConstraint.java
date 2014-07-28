@@ -17,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.*;
         @Retention(RUNTIME)
         public @interface NotNull {
         }
+        @Override
         public void validate(Object obj) throws ValidatorException {
             Field[] fields=obj.getClass().getDeclaredFields();
             for(Field f:fields){

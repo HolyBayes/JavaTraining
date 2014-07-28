@@ -12,18 +12,18 @@ import java.io.Serializable;
  */
 public class MailMessage  implements Serializable{//POJO to generate
     @NotBlank
-    @Pattern(regexp="[-_\\.a-zA-zO-9]")
+    @Pattern(regexp=".+\\.(com|ru)")
     public String _from;
 
     @NotNull
-    @Pattern(regexp="[-_\\.a-zA-zO-9]")
+    @Pattern(regexp=".+\\.(com|ru)")
     private String _to;
 
     @Size(min=1,max=10)
     private String _cc;
 
     @Size(min=1)
-    @Pattern(regexp="[-_\\.a-zA-zO-9]")
+    @Pattern(regexp=".+\\.(com|ru)")
     private String _bcc;
 
     public MailMessage(String from,String to,String cc,String bcc){

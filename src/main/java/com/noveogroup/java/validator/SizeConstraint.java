@@ -25,6 +25,7 @@ public class SizeConstraint implements Validator {
         int min() default -1;
         int max() default -1;
     }
+    @Override
     public void validate(Object obj) throws ValidatorException {
         Field[] fields=obj.getClass().getDeclaredFields();
         for(Field f:fields){

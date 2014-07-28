@@ -26,6 +26,7 @@ public class PatternConstraint implements Validator {
         Matcher m = p.matcher(userNameString);
         return m.matches();
     }
+    @Override
     public void validate(Object obj) throws ValidatorException{
         Field[] fields=obj.getClass().getDeclaredFields();
         for(Field f:fields) {
@@ -33,7 +34,8 @@ public class PatternConstraint implements Validator {
                 f.setAccessible(true);
                 new NotBlankConstraint().validate(f,obj);//@NotBlank
                 try {
-                    if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp(),(String)f.get(obj))) {
+                    if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp(),
+                            (String)f.get(obj))) {
                         throw new ValidatorException("@Pattern in "+obj.getClass().getName());
                     }
                 }

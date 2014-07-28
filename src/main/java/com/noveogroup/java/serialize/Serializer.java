@@ -16,13 +16,13 @@ public class Serializer{
     public Object load() throws IOException,ClassNotFoundException{
         return  ois.readObject();
     }
-    public Serializer(File input,File output) throws IOException{
+    public Serializer(File input,File output){
         try {
             ois = new ObjectInputStream(new FileInputStream(input));
             oos = new ObjectOutputStream(new FileOutputStream(output));
         }
         catch (IOException e){
-            System.out.print("IOException while serializing"+e.getMessage());
+            System.out.print("Wrong input/output");
         }
     }
 }

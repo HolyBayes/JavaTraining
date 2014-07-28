@@ -26,6 +26,7 @@ public class RangeConstraint implements Validator {
             int min();
             int max();
         }
+    @Override
         public void validate(Object obj) throws ValidatorException {
             Field[] fields=obj.getClass().getDeclaredFields();
             for(Field f:fields){

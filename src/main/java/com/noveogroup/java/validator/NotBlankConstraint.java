@@ -21,6 +21,7 @@ public class NotBlankConstraint implements Validator {
     @Retention(RUNTIME)
     public @interface NotBlank {
     }
+    @Override
     public void validate(Object obj) throws ValidatorException{
         Field[] fields=obj.getClass().getDeclaredFields();
         for(Field f:fields){
