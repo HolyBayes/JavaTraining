@@ -8,28 +8,29 @@ import com.noveogroup.java.validator.SizeConstraint.*;
 import java.io.Serializable;
 
 /**
- * Created by artem on 19.07.14.
+ * POJO to generate
+ * @author artem ryzhikov
  */
-public class MailMessage  implements Serializable{//POJO to generate
+public class MailMessage  implements Serializable {
     @NotBlank
-    @Pattern(regexp=".+\\.(com|ru)")
-    public String _from;
+    @Pattern(regexp = ".+\\.(com|ru)")
+    final public String from;
 
     @NotNull
-    @Pattern(regexp=".+\\.(com|ru)")
-    private String _to;
+    @Pattern(regexp = ".+\\.(com|ru)")
+    final private String to;
 
-    @Size(min=1,max=10)
-    private String _cc;
+    @Size(min = 1 , max = 10)
+    final private String cc;
 
-    @Size(min=1)
-    @Pattern(regexp=".+\\.(com|ru)")
-    private String _bcc;
+    @Size(min = 1)
+    @Pattern(regexp = ".+\\.(com|ru)")
+    final private String bcc;
 
-    public MailMessage(String from,String to,String cc,String bcc){
-        _from=from;
-        _to=to;
-        _cc=cc;
-        _bcc=bcc;
+    public MailMessage(final String from , final String to , final String cc , final String bcc) {
+        this.from = from;
+        this.to = to;
+        this.cc = cc;
+        this.bcc = bcc;
     }
 }

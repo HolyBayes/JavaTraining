@@ -6,56 +6,59 @@ import com.noveogroup.java.serialize.Serializer;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
+/**
+ * @author artem ryzhikov
+ */
 class Reader implements Runnable {
 
-    private final java.util.concurrent.BlockingQueue _queue;
-    private Serializer _serializer;
-    private AtomicBoolean _flag;//true till Reader works
-    private final MyBlockingQueue _myQueue;
-    private int _mode;
-    public Reader(java.util.concurrent.BlockingQueue queue,
-                  MyBlockingQueue myQueue,
-                  Serializer serializer,
-                  AtomicBoolean flag,
-                  int mode) {
-        this._queue = queue;
-        this._serializer=serializer;
-        this._flag=flag;
-        this._mode=mode;
-        this._myQueue=myQueue;
+    private static Logger log = Logger.getLogger(Reader.class.getName());
+    private final java.util.concurrent.BlockingQueue queue;
+    private Serializer serializer;
+    private AtomicBoolean flag;
+    //true till Reader works
+    private final MyBlockingQueue myQueue;
+    private int mode;
+    public Reader(final java.util.concurrent.BlockingQueue queue ,
+                  final MyBlockingQueue myQueue ,
+                  final Serializer serializer ,
+                  final AtomicBoolean flag ,
+                  final int mode) {
+        this.queue = queue;
+        this.serializer = serializer;
+        this.flag = flag;
+        this.mode = mode;
+        this.myQueue = myQueue;
     }
 
     @Override
-    public void run(){
-        _flag.set(true);
+    public void run() {
+        this.flag.set(true);
         System.out.println("[Reader] run\n");
-        while(_flag.get()) {
+        while (this.flag.get()) {
             try {
-                Object obj = _serializer.load();
-                if(_mode==0) {
-                    _queue.put(obj);
+                final Object obj = this.serializer.load();
+                if (this.mode == 0) {
+                    queue.put(obj);
+                } else {
+                    this.myQueue.put(obj);
                 }
-                else{
-                    _myQueue.put(obj);
-                }
-            }
-            catch (InterruptedException e){
-                System.out.print("Interrupted exception in put()");
-            }
-            catch (ClassNotFoundException e) {
+            } catch (InterruptedException e) {
+                final String message = "Interrupted exception in put()";
+                System.out.print(message);
+                log.log(Level.SEVERE , message , e);
+            } catch (ClassNotFoundException e) {
                 System.out.print(e.getMessage());
-            }
-            catch (IOException e) {
+                log.log(Level.SEVERE , "ClassNotFoundException in put()" , e);
+            } catch (IOException e) {
                 System.out.print("[Reader] finished\n");
-                _flag.set(false);
+                log.info("[Reader] finished");
+                this.flag.set(false);
             }
         }
     }
 
-    private Integer produce() {
-//        System.out.println("[Producer] produce: " + i);
-        return 0;
-    }
+
 }

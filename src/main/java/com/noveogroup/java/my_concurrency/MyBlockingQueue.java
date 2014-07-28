@@ -4,19 +4,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by artem on 28.07.14.
+ * No comments =)
+ * @author artem ryzhikov
  */
 public class MyBlockingQueue<T> {
 
     private List<T> queue = new LinkedList<T>();
-    private int  limit = 10;
+    private int  limit;
 
-    public MyBlockingQueue(int limit){
+    public MyBlockingQueue(final int limit) {
         this.limit = limit;
     }
 
-
-    public synchronized void put(T item) throws InterruptedException  {
+    public synchronized void put(final T item) throws InterruptedException {
         while (this.queue.size() == this.limit) {
             wait();
         }
@@ -26,17 +26,17 @@ public class MyBlockingQueue<T> {
         this.queue.add(item);
     }
 
-    public int size(){
+    public int size() {
         return queue.size();
     }
     public synchronized T take() throws InterruptedException{
-        while (this.queue.size() == 0){
+        while (this.queue.size() == 0) {
             wait();
         }
-        if (this.queue.size() == this.limit){
+        if (this.queue.size() == this.limit) {
             notifyAll();
         }
-
         return this.queue.remove(0);
     }
+
 }
