@@ -22,8 +22,8 @@ class Main {
         args[1]="temp.out";
         args[2]="1";
         Stack<Object> stack = generate();
-        File input = new File(args[1]);
-        File output = new File(args[2]);
+        File input = new File(args[0]);
+        File output = new File(args[1]);
         Serializer serializer = new Serializer(input, output);
         try{
             for (int i = 0; i < (CORCOUNT + NCORCOUNT); i++) {
