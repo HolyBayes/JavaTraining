@@ -26,23 +26,22 @@ public class SizeConstraint implements Validator {
         int max() default -1;
     }
     @Override
-    public void validate(Object obj) throws ValidatorException {
+    public void validate(Object obj) throws ValidatorException{
         Field[] fields=obj.getClass().getDeclaredFields();
         for(Field f:fields){
-            if(f.isAnnotationPresent(Size.class)) {
+            if(f.isAnnotationPresent(Size.class)){
                 int min=f.getAnnotation(Size.class).min();
                 int max=f.getAnnotation(Size.class).max();
             }
         }
     }
     public void validate(Field f,Object obj,int min,int max) throws ValidatorException{
-        try {
+        try{
             f.setAccessible(true);
             boolean flag=false;
             if(f.getType().getName()=="java.lang.String"){
                 String s=(String)f.get(obj);
-
-                if ( ((s.length()>max)
+                if (((s.length()>max)
                         &&(max!=-1))
                         ||
                         ((s.length()< min))
@@ -51,26 +50,22 @@ public class SizeConstraint implements Validator {
                 }
                 flag=true;
             }
-
             if(f.isEnumConstant()){
                 Vector v=(Vector)f.get(obj);
-                if ( ((v.size()>max)
+                if(((v.size()>max)
                         &&(max!=-1))
                         ||
                         ((v.size()< min))
-                            &&(min!=-1))
-                {
+                            &&(min!=-1)){
                     throw new ValidatorException("@Size constraint in " + obj.getClass().getName());
                 }
                 flag=true;
             }
-            if(!flag) {
+            if (!flag) {
                 throw new IllegalStateException("");
             }
-        }
-        catch(IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             System.out.print("Illegal Exception was thrown in " + obj.getClass().getName());
         }
     }
-
 }

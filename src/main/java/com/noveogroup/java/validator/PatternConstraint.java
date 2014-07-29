@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import org.hibernate.validator.constraints.NotBlank;
 import sun.security.validator.ValidatorException;
 
 import java.lang.annotation.Retention;
@@ -18,31 +17,31 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public class PatternConstraint implements Validator {
     @Target(value={METHOD,FIELD,ANNOTATION_TYPE,CONSTRUCTOR,PARAMETER})
     @Retention(RUNTIME)
-    public @interface Pattern{
+    public @interface Pattern {
         public String regexp();
     }
-    private boolean checkWithRegExp(String regexp,String userNameString){
+    private boolean checkWithRegExp(String regexp,String userNameString) {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(regexp);
         Matcher m = p.matcher(userNameString);
         return m.matches();
     }
     @Override
-    public void validate(Object obj) throws ValidatorException{
-        Field[] fields=obj.getClass().getDeclaredFields();
-        for(Field f:fields) {
+    public void validate(Object obj) throws ValidatorException {
+        Field[] fields = obj.getClass().getDeclaredFields();
+        for (Field f:fields) {
             if (f.isAnnotationPresent(Pattern.class)) {
                 f.setAccessible(true);
-                new NotBlankConstraint().validate(f,obj);//@NotBlank
-                try {
-                    if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp(),
+                new NotBlankConstraint().validate(f , obj);//@NotBlank
+                try{
+                    if(!checkWithRegExp(f.getAnnotation(Pattern.class).regexp() ,
                             (String)f.get(obj))) {
-                        throw new ValidatorException("@Pattern in "+obj.getClass().getName());
+                        throw new ValidatorException("@Pattern in " + obj.getClass().getName());
                     }
                 }
-                catch (PatternSyntaxException e){
-                    throw new ValidatorException("@Pattern in "+obj.getClass().getName());
+                catch (PatternSyntaxException e) {
+                    throw new ValidatorException("@Pattern in " + obj.getClass().getName());
                 }
-                catch(IllegalAccessException e){
+                catch(IllegalAccessException e) {
                     System.out.print("IllegalAccessException in " + obj.getClass().getName());
                 }
             }

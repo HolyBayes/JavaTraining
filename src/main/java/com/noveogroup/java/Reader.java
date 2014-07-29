@@ -13,35 +13,35 @@ import java.util.logging.Logger;
 class Reader implements Runnable {
 
     private static Logger log=Logger.getLogger(Reader.class.getName());
-    private final java.util.concurrent.BlockingQueue _queue;
-    private Serializer _serializer;
-    private AtomicBoolean _flag;//true till Reader works
-    private final MyBlockingQueue _myQueue;
-    private int _mode;
-    public Reader(java.util.concurrent.BlockingQueue queue,
-                  MyBlockingQueue myQueue,
-                  Serializer serializer,
-                  AtomicBoolean flag,
-                  int mode) {
-        this._queue = queue;
-        this._serializer=serializer;
-        this._flag=flag;
-        this._mode=mode;
-        this._myQueue=myQueue;
+    private final java.util.concurrent.BlockingQueue queue;
+    private Serializer serializer;
+    private AtomicBoolean flag;//true till Reader works
+    private final MyBlockingQueue myQueue;
+    private int mode;
+    public Reader(final java.util.concurrent.BlockingQueue queue ,
+                  final MyBlockingQueue myQueue ,
+                  final Serializer serializer ,
+                  final AtomicBoolean flag ,
+                  final int mode) {
+        this.queue = queue;
+        this.serializer = serializer;
+        this.flag = flag;
+        this.mode = mode;
+        this.myQueue = myQueue;
     }
 
     @Override
     public void run(){
-        _flag.set(true);
+        this.flag.set(true);
         System.out.println("[Reader] run\n");
-        while(_flag.get()) {
+        while(this.flag.get()) {
             try {
-                Object obj = _serializer.load();
-                if(_mode==0) {
-                    _queue.put(obj);
+                Object obj = this.serializer.load();
+                if(this.mode == 0) {
+                    queue.put(obj);
                 }
                 else{
-                    _myQueue.put(obj);
+                    this.myQueue.put(obj);
                 }
             }
             catch (InterruptedException e){
@@ -55,7 +55,7 @@ class Reader implements Runnable {
             catch (IOException e) {
                 System.out.print("[Reader] finished\n");
                 log.info("[Reader] finished");
-                _flag.set(false);
+                this.flag.set(false);
             }
         }
     }

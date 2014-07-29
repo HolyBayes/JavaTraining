@@ -1,0 +1,1 @@
+Проект писался на Intellij 13. В папке java-training
