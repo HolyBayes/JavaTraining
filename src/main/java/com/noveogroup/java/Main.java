@@ -13,9 +13,12 @@ import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class Main {
-    final static int QUEUE_SIZE=1000;
+    private final static int QUEUE_SIZE=1000;
+    private static Logger log=Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
         args=new String[3];
         args[0]="temp.out";
@@ -31,9 +34,12 @@ class Main {
             }
         }
         catch (IOException e){
+            log.log(Level.SEVERE,"Wrong output:",e);
             System.out.print("Wrong output"+e.getMessage());
+            log.info("Wrong output"+e.getMessage());
+
         }
-        //java concurrency framework
+        //java concurrency frameworks
         BlockingQueue<Object> queue=new ArrayBlockingQueue<Object>(QUEUE_SIZE);
         MyBlockingQueue<Object> myQueue=new MyBlockingQueue<Object>(QUEUE_SIZE);
         AtomicBoolean flag=new AtomicBoolean(false);

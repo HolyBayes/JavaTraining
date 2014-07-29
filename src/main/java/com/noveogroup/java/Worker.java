@@ -6,6 +6,8 @@ import sun.security.validator.ValidatorException;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by artem on 25.07.14.
@@ -13,6 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 class Worker implements Runnable {
     private final BlockingQueue<Object> _queue;
     private AtomicBoolean _flag;
+    private static Logger log=Logger.getLogger(Worker.class.getName());
     private int correct=0;
     private int incorrect=0;
     private final MyBlockingQueue _myQueue;
@@ -50,11 +53,14 @@ class Worker implements Runnable {
                 }
             } catch (InterruptedException e){
                 System.out.print("Interrupted exception in take()");
+                log.log(Level.SEVERE,"Interrupted exception in take()",e);
             } catch(ValidatorException e){
                 incorrect++;
             }
         }
+        System.out.format("Correct:%d \n Incorrect:%d", correct, incorrect);
+        log.info("Correct: "+correct+"\n Incorrect: "+incorrect);
         System.out.print("[Worker] finished\n");
-        System.out.format("Correct:%d \n Incorrect:%d",correct,incorrect);
+        log.info("[Worker] finished\n");
     }
 }

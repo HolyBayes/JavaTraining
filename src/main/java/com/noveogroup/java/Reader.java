@@ -6,10 +6,13 @@ import com.noveogroup.java.serialize.Serializer;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 class Reader implements Runnable {
 
+    private static Logger log=Logger.getLogger(Reader.class.getName());
     private final java.util.concurrent.BlockingQueue _queue;
     private Serializer _serializer;
     private AtomicBoolean _flag;//true till Reader works
@@ -43,19 +46,19 @@ class Reader implements Runnable {
             }
             catch (InterruptedException e){
                 System.out.print("Interrupted exception in put()");
+                log.log(Level.SEVERE,"Interrupted exception in put()",e);
             }
             catch (ClassNotFoundException e) {
                 System.out.print(e.getMessage());
+                log.log(Level.SEVERE,"ClassNotFoundException in put()",e);
             }
             catch (IOException e) {
                 System.out.print("[Reader] finished\n");
+                log.info("[Reader] finished");
                 _flag.set(false);
             }
         }
     }
 
-    private Integer produce() {
-//        System.out.println("[Producer] produce: " + i);
-        return 0;
-    }
+
 }
