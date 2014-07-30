@@ -11,7 +11,9 @@ import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * -//- (see NotBlankConstraint)
+ * @author artem ryzhikov
  */
+
 public class RangeConstraint implements Validator {
     @Target({ FIELD , METHOD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })
     @Retention(RUNTIME)

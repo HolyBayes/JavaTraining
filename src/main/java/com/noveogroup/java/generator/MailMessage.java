@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * POJO to generate
+ * @author artem ryzhikov
  */
 public class MailMessage  implements Serializable {
     @NotBlank

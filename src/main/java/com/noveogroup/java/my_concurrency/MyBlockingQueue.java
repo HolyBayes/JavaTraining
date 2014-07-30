@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Written by artem on 28.07.14.
+ * No comments =)
+ * @author artem ryzhikov
  */
 public class MyBlockingQueue<T> {
 

@@ -9,7 +9,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** */
+/**
+ * @author artem ryzhikov
+ */
 class Reader implements Runnable {
 
     private static Logger log = Logger.getLogger(Reader.class.getName());

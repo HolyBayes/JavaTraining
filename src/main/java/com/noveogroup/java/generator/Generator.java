@@ -4,6 +4,8 @@ import java.util.Stack;
 
 /**
  * Generates POJO
+ * @author artem ryzhikov
+ * CORCOUNT - number of correct POJO's, NCORCOUNT - of non-correct
  */
 public class Generator {
     public static int CORCOUNT = 50000;

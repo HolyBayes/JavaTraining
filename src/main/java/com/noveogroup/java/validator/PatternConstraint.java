@@ -13,6 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * -//- (see NotBlankConstraint)
+ * @author artem ryzhikov
  */
 public class PatternConstraint implements Validator {
     @Target(value = { METHOD , FIELD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })

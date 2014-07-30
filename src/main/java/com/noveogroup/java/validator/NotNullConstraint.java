@@ -11,6 +11,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * NotNullConstraint class consist of -//- (see NotBlankConstraint)
+ * @author artem ryzhikov
  */
     public class NotNullConstraint implements Validator {
         @Target(value = { METHOD , FIELD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })

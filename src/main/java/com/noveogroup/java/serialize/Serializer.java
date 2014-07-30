@@ -3,7 +3,8 @@ package com.noveogroup.java.serialize;
 import java.io.*;
 
 /**
- * Written by artem on 24.07.14.
+ * blablabla
+ * @author artem ryzhikov
  */
 public class Serializer {
     private ObjectInputStream ois;

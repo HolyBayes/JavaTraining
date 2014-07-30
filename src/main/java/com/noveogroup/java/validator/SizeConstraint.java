@@ -13,6 +13,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 /**
  * Size constraint class exists @Size(min,max) annotation (default value "-1" means infinite)
  * and @Size validator
+ * @author artem ryzhikov
  */
 public class SizeConstraint implements Validator {
 

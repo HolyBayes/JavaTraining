@@ -10,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by artem on 25.07.14.
+ *
+ * @author artem ryzhikov
  */
 class Worker implements Runnable {
     private final BlockingQueue<Object> queue;

@@ -16,6 +16,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author artem ryzhikov
+ */
 class Main {
     private final static int QUEUE_SIZE = 1000;
     private static Logger log = Logger.getLogger(Main.class.getName());

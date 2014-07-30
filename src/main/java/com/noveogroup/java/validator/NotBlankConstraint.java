@@ -12,6 +12,7 @@ import static java.lang.annotation.RetentionPolicy.*;
 /**
  * NotBlankConstraint exists @NotBlank annotation (means String field is not empty and not null) and it's validator
  * validate()
+ * @author artem ryzhikov
  */
 public class NotBlankConstraint implements Validator {
     @Target(value = { METHOD,FIELD,ANNOTATION_TYPE,CONSTRUCTOR,PARAMETER } )

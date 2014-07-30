@@ -3,7 +3,9 @@ package com.noveogroup.java.validator;
 import sun.security.validator.ValidatorException;
 
 /**
- * Created by artem on 23.07.14.
+ * Factory compares all specialized annotation's validators in
+ * one static method validate()
+ * @author artem ryzhikov
  */
 public abstract class ValidatorFactory {
     public static void validate(final Object obj) throws ValidatorException {
