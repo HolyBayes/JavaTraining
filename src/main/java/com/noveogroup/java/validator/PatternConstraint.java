@@ -12,36 +12,36 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by artem on 22.07.14.
+ * -//- (see NotBlankConstraint)
  */
 public class PatternConstraint implements Validator {
-    @Target(value={METHOD,FIELD,ANNOTATION_TYPE,CONSTRUCTOR,PARAMETER})
+    @Target(value = { METHOD , FIELD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })
     @Retention(RUNTIME)
+    /** */
     public @interface Pattern {
-        public String regexp();
+        String regexp();
     }
-    private boolean checkWithRegExp(String regexp,String userNameString) {
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(regexp);
-        Matcher m = p.matcher(userNameString);
+    private boolean checkWithRegExp(final String regexp , final String userNameString) {
+        final java.util.regex.Pattern p = java.util.regex.Pattern.compile(regexp);
+        final Matcher m = p.matcher(userNameString);
         return m.matches();
     }
     @Override
-    public void validate(Object obj) throws ValidatorException {
+    public void validate(final Object obj) throws ValidatorException {
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field f:fields) {
             if (f.isAnnotationPresent(Pattern.class)) {
                 f.setAccessible(true);
-                new NotBlankConstraint().validate(f , obj);//@NotBlank
-                try{
-                    if(!checkWithRegExp(f.getAnnotation(Pattern.class).regexp() ,
-                            (String)f.get(obj))) {
-                        throw new ValidatorException("@Pattern in " + obj.getClass().getName());
+                new NotBlankConstraint().validate(f , obj);
+                String message = "@Pattern in " + obj.getClass().getName();
+                try {
+                    if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp() ,
+                            (String) f.get(obj))) {
+                        throw new ValidatorException(message);
                     }
-                }
-                catch (PatternSyntaxException e) {
-                    throw new ValidatorException("@Pattern in " + obj.getClass().getName());
-                }
-                catch(IllegalAccessException e) {
+                } catch (PatternSyntaxException e) {
+                    throw new ValidatorException(message);
+                } catch (IllegalAccessException e) {
                     System.out.print("IllegalAccessException in " + obj.getClass().getName());
                 }
             }

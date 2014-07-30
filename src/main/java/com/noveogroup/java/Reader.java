@@ -9,13 +9,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/** */
 class Reader implements Runnable {
 
-    private static Logger log=Logger.getLogger(Reader.class.getName());
+    private static Logger log = Logger.getLogger(Reader.class.getName());
     private final java.util.concurrent.BlockingQueue queue;
     private Serializer serializer;
-    private AtomicBoolean flag;//true till Reader works
+    private AtomicBoolean flag;
+    //true till Reader works
     private final MyBlockingQueue myQueue;
     private int mode;
     public Reader(final java.util.concurrent.BlockingQueue queue ,
@@ -31,28 +32,25 @@ class Reader implements Runnable {
     }
 
     @Override
-    public void run(){
+    public void run() {
         this.flag.set(true);
         System.out.println("[Reader] run\n");
-        while(this.flag.get()) {
+        while (this.flag.get()) {
             try {
-                Object obj = this.serializer.load();
-                if(this.mode == 0) {
+                final Object obj = this.serializer.load();
+                if (this.mode == 0) {
                     queue.put(obj);
-                }
-                else{
+                } else {
                     this.myQueue.put(obj);
                 }
-            }
-            catch (InterruptedException e){
-                System.out.print("Interrupted exception in put()");
-                log.log(Level.SEVERE,"Interrupted exception in put()",e);
-            }
-            catch (ClassNotFoundException e) {
+            } catch (InterruptedException e) {
+                final String message = "Interrupted exception in put()";
+                System.out.print(message);
+                log.log(Level.SEVERE , message , e);
+            } catch (ClassNotFoundException e) {
                 System.out.print(e.getMessage());
-                log.log(Level.SEVERE,"ClassNotFoundException in put()",e);
-            }
-            catch (IOException e) {
+                log.log(Level.SEVERE , "ClassNotFoundException in put()" , e);
+            } catch (IOException e) {
                 System.out.print("[Reader] finished\n");
                 log.info("[Reader] finished");
                 this.flag.set(false);

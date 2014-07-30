@@ -5,7 +5,7 @@ import sun.security.validator.ValidatorException;
 import javax.xml.bind.ValidationException;
 
 /**
- * Created by artem on 19.07.14.
+ * Validator interface
  */
 public interface Validator {
     public void validate(Object value) throws ValidatorException, IllegalAccessException, ValidationException;
