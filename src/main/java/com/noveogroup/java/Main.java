@@ -26,6 +26,7 @@ class Main {
         final Stack<Object> stack = generate();
         final File input = new File(args[0]);
         final File output = new File(args[1]);
+        final int mode = Integer.parseInt(args[2]);
         final Serializer serializer = new Serializer(input , output);
         try {
             for (int i = 0; i < (CORCOUNT + NCORCOUNT); i++) {
@@ -43,7 +44,6 @@ class Main {
         final BlockingQueue<Object> queue = new ArrayBlockingQueue<Object>(QUEUE_SIZE);
         final MyBlockingQueue<Object> myQueue = new MyBlockingQueue<Object>(QUEUE_SIZE);
         final AtomicBoolean flag = new AtomicBoolean(false);
-        final int mode = Integer.parseInt(args[2]);
         final Reader reader = new Reader(queue , myQueue , serializer , flag , mode);
         final Worker worker = new Worker(queue , myQueue , flag , mode);
         new Thread(reader).start();
