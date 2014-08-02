@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -28,7 +27,7 @@ public class PatternConstraint implements Validator {
         return m.matches();
     }
     @Override
-    public void validate(final Object obj) throws ValidatorException {
+    public void validate(final Object obj) throws ValidateException {
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field f:fields) {
             if (f.isAnnotationPresent(Pattern.class)) {
@@ -38,10 +37,10 @@ public class PatternConstraint implements Validator {
                 try {
                     if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp() ,
                             (String) f.get(obj))) {
-                        throw new ValidatorException(message);
+                        throw new ValidateException(message);
                     }
                 } catch (PatternSyntaxException e) {
-                    throw new ValidatorException(message);
+                    throw new ValidateException(message);
                 } catch (IllegalAccessException e) {
                     System.out.print("IllegalAccessException in " + obj.getClass().getName());
                 }

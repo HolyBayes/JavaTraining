@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -19,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.*;
         public @interface NotNull {
         }
         @Override
-        public void validate(final Object obj) throws ValidatorException {
+        public void validate(final Object obj) throws ValidateException {
             final Field[] fields = obj.getClass().getDeclaredFields();
             for (Field f:fields) {
                 if (f.isAnnotationPresent(NotNull.class)) {
@@ -27,11 +26,11 @@ import static java.lang.annotation.RetentionPolicy.*;
                 }
             }
         }
-        public void validate(final Field f , final Object obj) throws ValidatorException {
+        public void validate(final Field f , final Object obj) throws ValidateException {
             try {
                 f.setAccessible(true);
                 if (f.get(obj) == null) {
-                    throw new ValidatorException("@NotNull constraint in " + obj.getClass().getName());
+                    throw new ValidateException("@NotNull constraint in " + obj.getClass().getName());
                 }
             } catch (IllegalAccessException e) {
                 System.out.print("Illegal Exception was thrown in " + obj.getClass().getName());

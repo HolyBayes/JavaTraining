@@ -1,13 +1,12 @@
 
 package com.noveogroup.java;
 
+
+import com.noveogroup.java.generator.POJOFactory;
 import com.noveogroup.java.my_concurrency.BlockingQueue;
 import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
 import com.noveogroup.java.serialize.Serializer;
-
-
-import static com.noveogroup.java.generator.Generator.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,21 +22,25 @@ import java.util.logging.Logger;
  */
 class Main {
     public static final int QUEUE_SIZE = 1000;
+    public static final int[] COUNTS = {50000};
+    public static final String[] CLASSNAMES = {"com.noveogroup.java.generator.MailMessage"};
     private static Logger log = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
-    Map<String , Integer> classes = new HashMap<String , Integer>();
-    
-  /*      args = new String[3];
-        args[0] = "temp.out";
-        args[1] = "temp.out";
-        args[2] = "0";
-        final Stack<Object> stack = generate();
-        final File input = new File(args[0]);
-        final File output = new File(args[1]);
-        final int mode = Integer.parseInt(args[2]);
+        final Map<String , Integer> classes = new HashMap<String , Integer>();
+        for(int i=0 , limit = CLASSNAMES.length; i < limit; i++){
+            classes.put(CLASSNAMES[i] , COUNTS[i]);
+        }
+        final String INPUT = "temp.out";
+        final String OUTPUT = "temp.out";
+        final String MODE = "0";
+        final POJOFactory factory = new POJOFactory();
+        final Stack<Object> stack = factory.gen(classes);
+        final File input = new File(INPUT);
+        final File output = new File(OUTPUT);
+        final int mode = Integer.parseInt(MODE);
         final Serializer serializer = new Serializer(input , output);
-        try {
-            for (int i = 0; i < (CORCOUNT + NCORCOUNT); i++) {
+        try{
+            for (int i = 0 , limit = stack.size(); i < limit; i++) {
                 serializer.store(stack.pop());
             }
         }
@@ -59,6 +62,6 @@ class Main {
         final Worker worker = new Worker(queue , flag);
         new Thread(reader).start();
         new Thread(worker).start();
-*/
+
     }
 }

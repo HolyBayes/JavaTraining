@@ -12,6 +12,8 @@ import java.io.Serializable;
  * @author artem ryzhikov
  */
 public class MailMessage  implements Serializable {
+    private static Generator gen = new Generator();
+
     @NotBlank
     @Pattern(regexp = ".+\\.(com|ru)")
     final public String from;
@@ -27,10 +29,12 @@ public class MailMessage  implements Serializable {
     @Pattern(regexp = ".+\\.(com|ru)")
     final private String bcc;
 
-    public MailMessage(final String from , final String to , final String cc , final String bcc) {
-        this.from = from;
-        this.to = to;
-        this.cc = cc;
-        this.bcc = bcc;
+    public MailMessage() {
+        this.from = gen.nextEmail();
+        this.to = gen.nextEmail();
+        this.cc = gen.nextEmail();
+        this.bcc = gen.nextEmail();
     }
+
+
 }

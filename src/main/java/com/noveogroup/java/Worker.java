@@ -2,6 +2,7 @@ package com.noveogroup.java;
 
 import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
+import com.noveogroup.java.validator.ValidateException;
 import com.noveogroup.java.validator.ValidatorFactory;
 import sun.security.validator.ValidatorException;
 
@@ -46,14 +47,13 @@ class Worker implements Runnable {
                 final String message = "Interrupted exception in take()";
                 System.out.print(message);
                 log.log(Level.SEVERE , message , e);
-            } catch (ValidatorException e) {
+            } catch (ValidateException e) {
                 incorrect++;
             }
         }
-        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);
+//        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);
         log.info("Correct: " + correct + "\n Incorrect: " + incorrect);
-        final String message = "[Worker] finished\n";
-        System.out.print(message);
-        log.info(message);
+        System.out.print("[Worker] finished\n");
+
     }
 }
