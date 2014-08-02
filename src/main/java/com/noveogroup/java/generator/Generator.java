@@ -8,8 +8,8 @@ import java.util.Stack;
  * CORCOUNT - number of correct POJO's, NCORCOUNT - of non-correct
  */
 public class Generator {
-    public static int CORCOUNT = 50000;
-    public static int NCORCOUNT = 30000;
+    public static final int CORCOUNT = 50000;
+    public static final int NCORCOUNT = 30000;
     public static Stack<Object> generate() {
         //Non-correct MailMessage
         final MailMessage nonCorrMailMessage = new MailMessage("" , "asd.ru" , "asd.com" , "asd");

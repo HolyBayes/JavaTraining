@@ -1,6 +1,7 @@
 package com.noveogroup.java;
 
 import com.noveogroup.java.my_concurrency.MyBlockingQueue;
+import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
 import com.noveogroup.java.validator.ValidatorFactory;
 import sun.security.validator.ValidatorException;
 
@@ -14,43 +15,30 @@ import java.util.logging.Logger;
  * @author artem ryzhikov
  */
 class Worker implements Runnable {
-    private final BlockingQueue<Object> queue;
+    private final SimpleBlockQueue<Object> queue;
     private AtomicBoolean flag;
     private Logger log = Logger.getLogger(Worker.class.getName());
     private int correct;
     private int incorrect;
-    private final MyBlockingQueue myQueue;
-    private int mode;
 
-    public Worker(final BlockingQueue<Object> queue,
-                  final MyBlockingQueue myQueue,
-                  final AtomicBoolean flag,
-                  final int mode
+    public Worker(final SimpleBlockQueue<Object> queue,
+                  final AtomicBoolean flag
                   ) {
         this.queue = queue;
-        this.myQueue = myQueue;
         this.flag = flag;
-        this.mode = mode;
+
     }
 
     @Override
     public void run() {
         System.out.println("[Worker] run\n");
-        //while (_queue.size != 0 or Reader still works)
         while ((this.queue.size() != 0)
-                || (this.flag.get())
-                || (this.myQueue.size() != 0)) {
+                || (this.flag.get())) {
             try {
-                if (this.queue.size() != 0 || this.myQueue.size() != 0) {
-                //Здесь еще можно засыпать если очередь пуста
+                if (this.queue.size() != 0) {
                     System.out.format("%d %d \n" , correct , incorrect);
                     Object obj;
-                    if (this.mode == 0) {
                         obj = this.queue.take();
-                    }
-                    else {
-                        obj = this.myQueue.take();
-                    }
                     ValidatorFactory.validate(obj);
                     correct++;
                 }

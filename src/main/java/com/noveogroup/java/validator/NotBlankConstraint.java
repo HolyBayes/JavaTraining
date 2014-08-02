@@ -35,7 +35,7 @@ public class NotBlankConstraint implements Validator {
         }
     }
     public void validate(final Field f , final Object obj) throws ValidatorException {
-        if (f.getType().getName() != "java.lang.String") {
+        if (!f.getType().equals(java.lang.String.class)) {
             throw new ValidatorException("@NotBlank Not a String in" + obj.getClass().getName());
         }
     }
