@@ -7,7 +7,7 @@ import java.util.List;
  * No comments =)
  * @author artem ryzhikov
  */
-public class MyBlockingQueue<T> {
+public class MyBlockingQueue<T> implements SimpleBlockQueue<T>{
 
     private List<T> queue = new LinkedList<T>();
     private int  limit;
@@ -16,6 +16,7 @@ public class MyBlockingQueue<T> {
         this.limit = limit;
     }
 
+    @Override
     public synchronized void put(final T item) throws InterruptedException {
         while (this.queue.size() == this.limit) {
             wait();
@@ -26,9 +27,12 @@ public class MyBlockingQueue<T> {
         this.queue.add(item);
     }
 
+    @Override
     public int size() {
         return queue.size();
     }
+
+    @Override
     public synchronized T take() throws InterruptedException{
         while (this.queue.size() == 0) {
             wait();

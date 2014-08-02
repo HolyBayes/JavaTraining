@@ -42,7 +42,7 @@ public class SizeConstraint implements Validator {
             f.setAccessible(true);
             boolean flag = false;
             final String message = "@Size constraint in " + obj.getClass().getName();
-            if (f.getType().getName() == "java.lang.String") {
+            if (f.getType().equals(java.lang.String.class)) {
                 final String s = (String) f.get(obj);
                 if (((s.length() > max)
                         &&
