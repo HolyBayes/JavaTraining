@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -22,7 +21,7 @@ public class RangeConstraint implements Validator {
             int max();
         }
     @Override
-        public void validate(final Object obj) throws ValidatorException {
+        public void validate(final Object obj) throws ValidateException {
             final Field[] fields = obj.getClass().getDeclaredFields();
             for (Field f:fields) {
                 if (f.isAnnotationPresent(Range.class)) {
@@ -32,7 +31,8 @@ public class RangeConstraint implements Validator {
                 }
             }
         }
-    public void validate(final Field f , final Object obj , final int min , final int max) throws ValidatorException {
+    public void validate(final Field f , final Object obj , final int min , final int max)
+            throws ValidateException {
         try {
             f.setAccessible(true);
             if (!(f.isEnumConstant())) {
@@ -41,7 +41,7 @@ public class RangeConstraint implements Validator {
             if (((Integer) f.get(obj) > max)
                     ||
                     ((Integer) f.get(obj) < min)) {
-                throw new ValidatorException("@Range constraint in " + obj.getClass().getName());
+                throw new ValidateException("@Range constraint in " + obj.getClass().getName());
             }
         } catch (IllegalAccessException e) {
             System.out.print("Illegal Exception was thrown in " + obj.getClass().getName());

@@ -1,7 +1,6 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
-;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
@@ -20,7 +19,7 @@ public class NotBlankConstraint implements Validator {
     public @interface NotBlank {
     }
     @Override
-    public void validate(final Object obj) throws ValidatorException {
+    public void validate(final Object obj) throws ValidateException {
         /** */
         final Field[] fields=obj.getClass().getDeclaredFields();
         for (Field f:fields) {
@@ -34,9 +33,9 @@ public class NotBlankConstraint implements Validator {
             }
         }
     }
-    public void validate(final Field f , final Object obj) throws ValidatorException {
+    public void validate(final Field f , final Object obj) throws ValidateException {
         if (!f.getType().equals(java.lang.String.class)) {
-            throw new ValidatorException("@NotBlank Not a String in" + obj.getClass().getName());
+            throw new ValidateException("@NotBlank Not a String in" + obj.getClass().getName());
         }
     }
 }

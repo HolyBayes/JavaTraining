@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
 
 /**
  * Factory compares all specialized annotation's validators in
@@ -8,7 +7,7 @@ import sun.security.validator.ValidatorException;
  * @author artem ryzhikov
  */
 public abstract class ValidatorFactory {
-    public static void validate(final Object obj) throws ValidatorException {
+    public static void validate(final Object obj) throws ValidateException {
         new NotBlankConstraint().validate(obj);
         new NotNullConstraint().validate(obj);
         new PatternConstraint().validate(obj);

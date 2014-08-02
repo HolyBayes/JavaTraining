@@ -1,6 +1,5 @@
 package com.noveogroup.java.validator;
 
-import sun.security.validator.ValidatorException;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -24,7 +23,7 @@ public class SizeConstraint implements Validator {
         int max() default -1;
     }
     @Override
-    public void validate(final Object obj) throws ValidatorException {
+    public void validate(final Object obj) throws ValidateException {
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field f:fields) {
             if (f.isAnnotationPresent(Size.class)) {
@@ -37,7 +36,7 @@ public class SizeConstraint implements Validator {
     public void validate(final Field f ,
                          final Object obj ,
                          final int min ,
-                         final int max) throws ValidatorException {
+                         final int max) throws ValidateException {
         try {
             f.setAccessible(true);
             boolean flag = false;
@@ -51,7 +50,7 @@ public class SizeConstraint implements Validator {
                         ((s.length() < min))
                             &&
                                 (min != -1)) {
-                    throw new ValidatorException(message);
+                    throw new ValidateException(message);
                 }
                 flag = true;
             }
@@ -64,7 +63,7 @@ public class SizeConstraint implements Validator {
                         ((v.size() < min))
                             &&
                                 (min != -1)) {
-                    throw new ValidatorException(message);
+                    throw new ValidateException(message);
                 }
                 flag = true;
             }
