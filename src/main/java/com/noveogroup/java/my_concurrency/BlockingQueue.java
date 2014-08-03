@@ -22,7 +22,7 @@ public class BlockingQueue<T> implements SimpleBlockQueue<T> {
         return this.queue.size();
     }
 
-    public BlockingQueue(int size){
+    public BlockingQueue(int size) {
         this.queue = new ArrayBlockingQueue<T>(size);
     }
 }

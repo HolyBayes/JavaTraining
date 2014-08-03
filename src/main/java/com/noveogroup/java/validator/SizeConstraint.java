@@ -15,12 +15,12 @@ import static java.lang.annotation.RetentionPolicy.*;
  * @author artem ryzhikov
  */
 public class SizeConstraint implements Validator {
-
+    public final static int INFINITE =-1;
     @Target({ FIELD , METHOD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })
     @Retention(RUNTIME)
     public @interface Size {
-        int min() default -1;
-        int max() default -1;
+        int min() default 0;
+        int max() default INFINITE;
     }
     @Override
     public void validate(final Object obj) throws ValidateException {
@@ -33,6 +33,12 @@ public class SizeConstraint implements Validator {
             }
         }
     }
+    private boolean compare(int value , int min , int max) {
+        if(value > min && (value < max || max == INFINITE )){
+            return true;
+        }
+        return false;
+    }
     public void validate(final Field f ,
                          final Object obj ,
                          final int min ,
@@ -43,26 +49,14 @@ public class SizeConstraint implements Validator {
             final String message = "@Size constraint in " + obj.getClass().getName();
             if (f.getType().equals(java.lang.String.class)) {
                 final String s = (String) f.get(obj);
-                if (((s.length() > max)
-                        &&
-                        (max != -1))
-                        ||
-                        ((s.length() < min))
-                            &&
-                                (min != -1)) {
+                if (!compare(s.length() , min , max)) {
                     throw new ValidateException(message);
                 }
                 flag = true;
             }
             if (f.isEnumConstant()) {
                 final Vector v = (Vector) f.get(obj);
-                if (((v.size() > max)
-                        &&
-                        (max != -1))
-                        ||
-                        ((v.size() < min))
-                            &&
-                                (min != -1)) {
+                if (!compare(v.size() , min , max)) {
                     throw new ValidateException(message);
                 }
                 flag = true;

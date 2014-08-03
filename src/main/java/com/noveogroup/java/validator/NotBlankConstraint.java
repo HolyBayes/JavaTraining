@@ -18,6 +18,8 @@ public class NotBlankConstraint implements Validator {
     @Retention(RUNTIME)
     public @interface NotBlank {
     }
+    final static SizeConstraint sizeConstraint = new SizeConstraint();
+    final static NotNullConstraint notNullConstraint = new NotNullConstraint();
     @Override
     public void validate(final Object obj) throws ValidateException {
         /** */
@@ -26,9 +28,9 @@ public class NotBlankConstraint implements Validator {
             if (f.isAnnotationPresent(NotBlank.class)) {
                 f.setAccessible(true);
                 //@Size(min=1)
-                new SizeConstraint().validate(f , obj , 1 , -1);
+                sizeConstraint.validate(f, obj, 1, sizeConstraint.INFINITE);
                 //@NotNull
-                new NotNullConstraint().validate(f , obj);
+                notNullConstraint.validate(f , obj);
                     validate(f , obj);
             }
         }

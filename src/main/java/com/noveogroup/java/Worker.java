@@ -21,6 +21,7 @@ class Worker implements Runnable {
     private Logger log = Logger.getLogger(Worker.class.getName());
     private int correct;
     private int incorrect;
+    private final static ValidatorFactory validatorFactory = new ValidatorFactory();
 
     public Worker(final SimpleBlockQueue<Object> queue,
                   final AtomicBoolean flag
@@ -40,7 +41,7 @@ class Worker implements Runnable {
                     System.out.format("%d %d \n" , correct , incorrect);
                     Object obj;
                         obj = this.queue.take();
-                    ValidatorFactory.validate(obj);
+                    validatorFactory.validate(obj);
                     correct++;
                 }
             } catch (InterruptedException e){
@@ -49,6 +50,7 @@ class Worker implements Runnable {
                 log.log(Level.SEVERE , message , e);
             } catch (ValidateException e) {
                 incorrect++;
+//                log.log(Level.SEVERE , e.getMessage());
             }
         }
 //        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);

@@ -7,6 +7,7 @@ import com.noveogroup.java.my_concurrency.BlockingQueue;
 import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
 import com.noveogroup.java.serialize.Serializer;
+import com.noveogroup.java.validator.ValidatorFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
  * @author artem ryzhikov
  */
 class Main {
+
     public static final int QUEUE_SIZE = 1000;
     public static final int[] COUNTS = {50000};
     public static final String[] CLASSNAMES = {"com.noveogroup.java.generator.MailMessage"};
@@ -33,8 +35,8 @@ class Main {
         final String INPUT = "temp.out";
         final String OUTPUT = "temp.out";
         final String MODE = "0";
-        final POJOFactory factory = new POJOFactory();
-        final Stack<Object> stack = factory.gen(classes);
+        final POJOFactory pojoFactory = new POJOFactory();
+        final Stack<Object> stack = pojoFactory.gen(classes);
         final File input = new File(INPUT);
         final File output = new File(OUTPUT);
         final int mode = Integer.parseInt(MODE);
