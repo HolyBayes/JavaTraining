@@ -37,7 +37,7 @@ class Reader implements Runnable {
         while (this.flag.get()) {
             try {
                 final Object obj = this.serializer.load();
-                    queue.put(obj);
+                queue.put(obj);
             } catch (InterruptedException e) {
                 final String message = "Interrupted exception in put()";
                 System.out.print(message);
@@ -46,12 +46,15 @@ class Reader implements Runnable {
                 System.out.print(e.getMessage());
                 log.log(Level.SEVERE , "ClassNotFoundException in put()" , e);
             } catch (IOException e) {
-                System.out.print("[Reader] finished\n");
-                log.info("[Reader] finished");
-                this.flag.set(false);
+                this.stop();
             }
         }
     }
-
+    private void stop(){
+        System.out.print("[Reader] finished\n");
+        log.info("[Reader] finished");
+        this.flag.set(false);
+        serializer.close();
+    }
 
 }
