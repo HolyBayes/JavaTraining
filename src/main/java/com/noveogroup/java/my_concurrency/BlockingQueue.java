@@ -4,6 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by artem on 30.07.14.
+ * It's cover of concurrency BlockingQueue for SimpleBlockQueue interface
  */
 public class BlockingQueue<T> implements SimpleBlockQueue<T> {
     private java.util.concurrent.BlockingQueue queue;

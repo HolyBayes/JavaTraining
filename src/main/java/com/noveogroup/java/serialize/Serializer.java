@@ -7,15 +7,18 @@ import java.io.*;
  * @author artem ryzhikov
  */
 public class Serializer {
+
     private ObjectInputStream ois;
+    private final boolean oisFlag = false;
     private ObjectOutputStream oos;
 
     public Serializer(final File input , final File output) {
         try {
-            ois = new ObjectInputStream(new FileInputStream(input));
-            oos = new ObjectOutputStream(new FileOutputStream(output));
-        } catch (IOException e) {
-            System.out.print("Wrong input/output");
+            FileInputStream fis = new FileInputStream(input);
+            FileOutputStream fos = new FileOutputStream(output);
+            ois = new ObjectInputStream(fis);
+            oos = new ObjectOutputStream(fos);
+        } catch (IOException e){
         }
     }
     public void store(final Object obj) throws IOException {
@@ -24,4 +27,12 @@ public class Serializer {
     public Object load() throws IOException , ClassNotFoundException {
         return  ois.readObject();
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        ois.close();
+        oos.close();
+        super.finalize();
+    }
+
 }

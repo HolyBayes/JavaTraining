@@ -10,9 +10,9 @@ import java.util.logging.Logger;
  * @author artem ryzhikov
  * CORCOUNT - number of correct POJO's, NCORCOUNT - of non-correct
  */
-public class POJOFactory {
+public class PojoFactory {
 
-    private static Logger log = Logger.getLogger(POJOFactory.class.getName());
+    private static Logger log = Logger.getLogger(PojoFactory.class.getName());
     public Stack<Object> gen(Map<String , Integer> classes) {
         Stack<Object> result = new Stack<Object>();
         try {

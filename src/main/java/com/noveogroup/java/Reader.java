@@ -46,12 +46,16 @@ class Reader implements Runnable {
                 System.out.print(e.getMessage());
                 log.log(Level.SEVERE , "ClassNotFoundException in put()" , e);
             } catch (IOException e) {
-                System.out.print("[Reader] finished\n");
-                log.info("[Reader] finished");
-                this.flag.set(false);
+                this.stop();
+            } catch (NullPointerException e) {
+                this.stop();
             }
         }
     }
-
+    private void stop(){
+        System.out.print("[Reader] finished\n");
+        log.info("[Reader] finished");
+        this.flag.set(false);
+    }
 
 }
