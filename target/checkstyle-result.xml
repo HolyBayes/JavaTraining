@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.6">
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/Worker.java">
+<error line="5" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="50" column="21" severity="error" message="&apos;}&apos; should be on the same line." source="com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck"/>
+<error line="57" column="45" severity="error" message="&apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/my_concurrency/MyBlockingQueue.java">
+<error line="0" severity="error" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="6" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="10" severity="error" message="Type Javadoc comment is missing an @param &lt;T&gt; tag." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+<error line="32" column="61" severity="error" message="&apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/Main.java">
+<error line="0" severity="error" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="22" column="1" severity="error" message="Class Data Abstraction Coupling is 8 (max allowed is 7) classes [ArrayBlockingQueue, AtomicBoolean, File, MyBlockingQueue, Reader, Serializer, Thread, Worker]." source="com.puppycrawl.tools.checkstyle.checks.metrics.ClassDataAbstractionCouplingCheck"/>
+<error line="22" column="1" severity="error" message="Utility classes should not have a public or default constructor." source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+<error line="25" column="29" severity="error" message="Parameter args should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
+<error line="35" column="9" severity="error" message="&apos;}&apos; should be on the same line." source="com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck"/>
+<error line="37" column="20" severity="error" message="Variable &apos;message&apos; should be declared final." source="com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/NotNullConstraint.java">
+<error line="0" severity="error" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="12" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="16" severity="error" message="class def ident at indentation level 4 not at correct indentation, 0" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="16" severity="error" message="class def modifier at indentation level 4 not at correct indentation, 0" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="17" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+<error line="21" severity="error" message="method def modifier at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="22" severity="error" message="method def modifier at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="23" severity="error" message="method def child at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="24" severity="error" message="for at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="25" severity="error" message="if at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="26" severity="error" message="if child at indentation level 20 not at correct indentation, 16" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="27" severity="error" message="if rcurly at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="28" severity="error" message="for rcurly at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="29" severity="error" message="method def rcurly at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="30" severity="error" message="method def modifier at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="31" severity="error" message="try at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="32" severity="error" message="try child at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="33" severity="error" message="if at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="34" severity="error" message="if child at indentation level 20 not at correct indentation, 16" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="35" severity="error" message="if rcurly at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="36" severity="error" message="try rcurly at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="37" severity="error" message="catch child at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="38" severity="error" message="catch rcurly at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="39" severity="error" message="method def rcurly at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="40" severity="error" message="class def rcurly at indentation level 4 not at correct indentation, 0" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/NotBlankConstraint.java">
+<error line="5" column="1" severity="error" message="Got an exception - expecting EOF, found &apos;import&apos;" source="com.puppycrawl.tools.checkstyle.TreeWalker"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/SizeConstraint.java">
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="13" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="20" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+<error line="28" column="17" severity="error" message="Variable &apos;fields&apos; should be declared final." source="com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck"/>
+<error line="37" column="5" severity="error" message="Cyclomatic Complexity is 13 (max allowed is 10)." source="com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck"/>
+<error line="45" column="39" severity="error" message="Literal Strings should be compared using equals(), not &apos;==&apos;." source="com.puppycrawl.tools.checkstyle.checks.coding.StringLiteralEqualityCheck"/>
+<error line="59" column="23" severity="error" message="Declaring variables, return values or parameters of type &apos;Vector&apos; is not allowed." source="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTypeCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/Validator.java">
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="7" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="12" column="5" severity="error" message="Redundant &apos;public&apos; modifier." source="com.puppycrawl.tools.checkstyle.checks.modifier.RedundantModifierCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/PatternConstraint.java">
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="14" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="19" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+<error line="32" column="17" severity="error" message="Variable &apos;fields&apos; should be declared final." source="com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck"/>
+<error line="37" column="24" severity="error" message="Variable &apos;message&apos; should be declared final." source="com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/RangeConstraint.java">
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="12" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="18" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+<error line="25" severity="error" message="method def modifier at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="26" severity="error" message="method def child at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="27" severity="error" message="for at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="28" severity="error" message="if at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="29" severity="error" message="if child at indentation level 20 not at correct indentation, 16" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="30" severity="error" message="if child at indentation level 20 not at correct indentation, 16" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="31" severity="error" message="if child at indentation level 20 not at correct indentation, 16" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="32" severity="error" message="if rcurly at indentation level 16 not at correct indentation, 12" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="33" severity="error" message="for rcurly at indentation level 12 not at correct indentation, 8" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+<error line="34" severity="error" message="method def rcurly at indentation level 8 not at correct indentation, 4" source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/ValidatorFactory.java">
+<error line="3" column="1" severity="error" message="Import from illegal package - sun.security.validator.ValidatorException." source="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck"/>
+<error line="5" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/serialize/Serializer.java">
+<error line="5" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/Reader.java">
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/generator/MailMessage.java">
+<error line="10" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="17" column="11" severity="error" message="&apos;public&apos; modifier out of order with the JLS suggestions." source="com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck"/>
+<error line="17" column="25" severity="error" message="Variable &apos;from&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="21" column="11" severity="error" message="&apos;private&apos; modifier out of order with the JLS suggestions." source="com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck"/>
+<error line="23" column="27" severity="error" message="&apos;10&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="24" column="11" severity="error" message="&apos;private&apos; modifier out of order with the JLS suggestions." source="com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck"/>
+<error line="28" column="11" severity="error" message="&apos;private&apos; modifier out of order with the JLS suggestions." source="com.puppycrawl.tools.checkstyle.checks.modifier.ModifierOrderCheck"/>
+</file>
+<file name="/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/generator/Generator.java">
+<error line="5" severity="error" message="First sentence should end with a period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="10" column="1" severity="error" message="Utility classes should not have a public or default constructor." source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+</file>
+</checkstyle>
