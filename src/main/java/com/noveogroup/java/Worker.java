@@ -2,6 +2,7 @@ package com.noveogroup.java;
 
 import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
+import com.noveogroup.java.serialize.Serializer;
 import com.noveogroup.java.validator.ValidateException;
 import com.noveogroup.java.validator.ValidatorFactory;
 import sun.security.validator.ValidatorException;
@@ -21,14 +22,13 @@ class Worker implements Runnable {
     private Logger log = Logger.getLogger(Worker.class.getName());
     private int correct;
     private int incorrect;
-    private final static ValidatorFactory validatorFactory = new ValidatorFactory();
+    private final ValidatorFactory validatorFactory = new ValidatorFactory();
 
-    public Worker(final SimpleBlockQueue<Object> queue,
+    public Worker(final SimpleBlockQueue<Object> queue ,
                   final AtomicBoolean flag
-                  ) {
+    ) {
         this.queue = queue;
         this.flag = flag;
-
     }
 
     @Override
@@ -40,7 +40,7 @@ class Worker implements Runnable {
                 if (this.queue.size() != 0) {
                     System.out.format("%d %d \n" , correct , incorrect);
                     Object obj;
-                        obj = this.queue.take();
+                    obj = this.queue.take();
                     validatorFactory.validate(obj);
                     correct++;
                 }
@@ -56,6 +56,5 @@ class Worker implements Runnable {
 //        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);
         log.info("Correct: " + correct + "\n Incorrect: " + incorrect);
         System.out.print("[Worker] finished\n");
-
     }
 }

@@ -24,50 +24,46 @@ class Main {
 
     public static final int QUEUE_SIZE = 1000;
     public static final int[] COUNTS = {50000};
-    public static final String[] CLASSNAMES = {"com.noveogroup.java.generator.MailMessage"};
-    private static Logger log = Logger.getLogger(Main.class.getName());
+    public static final String[] CLASS_NAMES = {"com.noveogroup.java.generator.MailMessage"};
+    private static Logger LOG = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
         final Map<String , Integer> classes = new HashMap<String , Integer>();
-        for(int i=0 , limit = CLASSNAMES.length; i < limit; i++){
-            classes.put(CLASSNAMES[i] , COUNTS[i]);
+        for(int i=0 , limit = CLASS_NAMES.length; i < limit; i++){
+            classes.put(CLASS_NAMES[i] , COUNTS[i]);
         }
-        final String INPUT = "temp1.out";
+        final String INPUT = "temp.out";
         final String OUTPUT = "temp.out";
         final String MODE = "0";
         final PojoFactory pojoFactory = new PojoFactory();
         final Stack<Object> stack = pojoFactory.gen(classes);
-        final File input = new File(INPUT);
-        final File output = new File(OUTPUT);
-        final int mode = Integer.parseInt(MODE);
+        final File INPUT_FILE = new File(INPUT);
+        final File OUTPUT_FILE = new File(OUTPUT);
+        final int INT_MODE = Integer.parseInt(MODE);
 
-        final Serializer serializer = new Serializer(input, output);
-
-
+        final Serializer SERIALIZER = new Serializer(INPUT_FILE, OUTPUT_FILE);
 
         try {
             for (int i = 0 , limit = stack.size(); i < limit; i++) {
-                serializer.store(stack.pop());
+                SERIALIZER.store(stack.pop());
             }
         } catch (IOException e) {
             String message = "Wrong output";
-            log.log(Level.SEVERE , message , e);
+            LOG.log(Level.SEVERE, message, e);
             System.out.print(message + e.getMessage());
-            log.info(message + e.getMessage());
+            LOG.info(message + e.getMessage());
 
-        } catch (NullPointerException e) {
-            log.log(Level.SEVERE , "Wrong output" , e);
         }
-        final SimpleBlockQueue<Object> queue;
-        if(mode == 0){
-            queue = new BlockingQueue<Object>(QUEUE_SIZE);
+        final SimpleBlockQueue<Object> QUEUE;
+        if(INT_MODE == 0){
+            QUEUE = new BlockingQueue<Object>(QUEUE_SIZE);
         } else{
-            queue = new MyBlockingQueue<Object>(QUEUE_SIZE);
+            QUEUE = new MyBlockingQueue<Object>(QUEUE_SIZE);
         }
-        final AtomicBoolean flag = new AtomicBoolean(false);
-        final Reader reader = new Reader(queue , serializer , flag);
-        final Worker worker = new Worker(queue , flag);
-        new Thread(reader).start();
-        new Thread(worker).start();
+        final AtomicBoolean FLAG = new AtomicBoolean(false);
+        final Reader READER = new Reader(QUEUE , SERIALIZER , FLAG);
+        final Worker WORKER = new Worker(QUEUE , FLAG);
+        new Thread(READER).start();
+        new Thread(WORKER).start();
 
-    }
+}
 }

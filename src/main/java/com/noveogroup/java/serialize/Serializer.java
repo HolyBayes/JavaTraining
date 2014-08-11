@@ -1,6 +1,8 @@
 package com.noveogroup.java.serialize;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * blablabla
@@ -9,30 +11,40 @@ import java.io.*;
 public class Serializer {
 
     private ObjectInputStream ois;
-    private final boolean oisFlag = false;
     private ObjectOutputStream oos;
+
+    private final static Logger LOG = Logger.getLogger(Serializer.class.getName());
 
     public Serializer(final File input , final File output) {
         try {
-            FileInputStream fis = new FileInputStream(input);
-            FileOutputStream fos = new FileOutputStream(output);
-            ois = new ObjectInputStream(fis);
-            oos = new ObjectOutputStream(fos);
+            ois = new ObjectInputStream(new FileInputStream(input));
+            oos = new ObjectOutputStream(new FileOutputStream(output));
         } catch (IOException e){
+            LOG.log(Level.SEVERE, "IOException Serializer() :", e);
         }
     }
     public void store(final Object obj) throws IOException {
-        oos.writeObject(obj);
+        if(oos == null) {
+            throw new IOException("ObjectOutputStream is null");
+        }
+        else {
+            oos.writeObject(obj);
+        }
     }
     public Object load() throws IOException , ClassNotFoundException {
+        if(ois == null){
+            throw new IOException("ObjectInputStream is null");
+        }
         return  ois.readObject();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        ois.close();
-        oos.close();
-        super.finalize();
+    public void close() {
+        try{
+            ois.close();
+            oos.close();
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, "IOException in ObjectStream.close(): ", e);
+        }
     }
 
 }

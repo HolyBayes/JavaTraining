@@ -132,7 +132,6 @@ public class Generator {
         final int localLen = nextInt(MAX_EMAIL_LEN - 1) + 1;
         final int domainLen = nextInt(MAX_EMAIL_LEN - 1) + 1;
         final String domainEnd = DOMAIN_END[nextInt(DOMAIN_END.length)];
-
         return nextWord(localLen) + '@' + nextWord(domainLen) + domainEnd;
     }
 
@@ -148,7 +147,6 @@ public class Generator {
     public Date nextDate() {
         final int timeToggle = nextBoolean() ? 1 : -1;
         final long now = System.currentTimeMillis();
-
         return new Date(now + timeToggle * nextInt(MAX_TIME_DEVIATION));
     }
 }

@@ -4,6 +4,8 @@ package com.noveogroup.java.validator;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.PatternSyntaxException;
 
@@ -15,6 +17,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author artem ryzhikov
  */
 public class PatternConstraint implements Validator {
+    private final static Logger LOG = Logger.getLogger(PatternConstraint.class.getName());
+    private final static NotNullConstraint NOT_NULL_CONSTRAINT = new NotNullConstraint();
+
     @Target(value = { METHOD , FIELD , ANNOTATION_TYPE , CONSTRUCTOR , PARAMETER })
     @Retention(RUNTIME)
     /** */
@@ -32,8 +37,22 @@ public class PatternConstraint implements Validator {
         for (Field f:fields) {
             if (f.isAnnotationPresent(Pattern.class)) {
                 f.setAccessible(true);
-                new NotBlankConstraint().validate(f , obj);
-                String message = "@Pattern in " + obj.getClass().getName();
+                NOT_NULL_CONSTRAINT.validate(f, obj);
+                String value = new String();
+                try {
+                    value = f.get(obj).toString();
+                } catch (IllegalAccessException e) {
+                    LOG.log(Level.FINE, "IllegalAccessException in Object" +
+                            obj.getClass().getName() +
+                            "\n in field" +
+                            f.getName());
+                }
+                String message = "@Pattern in "  +
+                        obj.getClass().getName() +
+                        "\n in Field: " +
+                        f.getName() +
+                        "\n with value: " +
+                        value;
                 try {
                     if (!checkWithRegExp(f.getAnnotation(Pattern.class).regexp() ,
                             (String) f.get(obj))) {
@@ -42,7 +61,7 @@ public class PatternConstraint implements Validator {
                 } catch (PatternSyntaxException e) {
                     throw new ValidateException(message);
                 } catch (IllegalAccessException e) {
-                    System.out.print("IllegalAccessException in " + obj.getClass().getName());
+                    LOG.log(Level.SEVERE, "IllegalAccessException in RegExp:", e);
                 }
             }
         }
