@@ -7,6 +7,7 @@ import com.noveogroup.java.validator.ValidateException;
 import com.noveogroup.java.validator.ValidatorFactory;
 import sun.security.validator.ValidatorException;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -44,13 +45,11 @@ class Worker implements Runnable {
                     validatorFactory.validate(obj);
                     correct++;
                 }
-            } catch (InterruptedException e){
-                final String message = "Interrupted exception in take()";
-                System.out.print(message);
-                log.log(Level.SEVERE , message , e);
             } catch (ValidateException e) {
                 incorrect++;
 //                log.log(Level.SEVERE , e.getMessage());
+            } catch (Exception e) {
+                log.log(Level.SEVERE , e.getMessage());
             }
         }
 //        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);

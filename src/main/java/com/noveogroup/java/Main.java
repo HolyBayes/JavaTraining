@@ -20,25 +20,26 @@ import java.util.logging.Logger;
 /**
  * @author artem ryzhikov
  */
-class Main {
 
-    public static final int QUEUE_SIZE = 1000;
-    public static final int[] COUNTS = {50000};
-    public static final String[] CLASS_NAMES = {"com.noveogroup.java.generator.MailMessage"};
-    private static Logger LOG = Logger.getLogger(Main.class.getName());
+class Main {
+    final static String INPUT = "temp.out";
+    final static String OUTPUT = "temp.out";
+    final static String MODE = "0";
+    final static int QUEUE_SIZE = 1000;
+    final static int[] COUNTS = {50000};
+    final static String[] CLASS_NAMES = {"com.noveogroup.java.generator.MailMessage"};
+    final static Logger LOG = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
+        final File INPUT_FILE = new File(INPUT);
+        final File OUTPUT_FILE = new File(OUTPUT);
+        final int INT_MODE = Integer.parseInt(MODE);
         final Map<String , Integer> classes = new HashMap<String , Integer>();
         for(int i=0 , limit = CLASS_NAMES.length; i < limit; i++){
             classes.put(CLASS_NAMES[i] , COUNTS[i]);
         }
-        final String INPUT = "temp.out";
-        final String OUTPUT = "temp.out";
-        final String MODE = "0";
+
         final PojoFactory pojoFactory = new PojoFactory();
         final Stack<Object> stack = pojoFactory.gen(classes);
-        final File INPUT_FILE = new File(INPUT);
-        final File OUTPUT_FILE = new File(OUTPUT);
-        final int INT_MODE = Integer.parseInt(MODE);
 
         final Serializer SERIALIZER = new Serializer(INPUT_FILE, OUTPUT_FILE);
 

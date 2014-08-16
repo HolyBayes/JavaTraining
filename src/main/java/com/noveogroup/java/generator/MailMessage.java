@@ -1,9 +1,10 @@
 package com.noveogroup.java.generator;
 
-import com.noveogroup.java.validator.NotNullConstraint.*;
-import com.noveogroup.java.validator.PatternConstraint.*;
-import com.noveogroup.java.validator.NotBlankConstraint.*;
-import com.noveogroup.java.validator.SizeConstraint.*;
+import com.noveogroup.java.validator.NotBlank;
+import com.noveogroup.java.validator.NotBlankValidator.*;
+import com.noveogroup.java.validator.NotNull;
+import com.noveogroup.java.validator.Pattern;
+import com.noveogroup.java.validator.Size;
 
 import java.io.Serializable;
 

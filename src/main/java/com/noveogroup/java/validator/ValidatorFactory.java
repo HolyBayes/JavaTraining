@@ -1,7 +1,13 @@
 package com.noveogroup.java.validator;
 
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,30 +20,42 @@ import java.util.logging.Logger;
 public class ValidatorFactory {
     private static List<Validator> validators = new ArrayList<Validator>();
     private static Logger log = Logger.getLogger(ValidatorFactory.class.getName());
+
     public ValidatorFactory() {
-        validators.add(new NotBlankConstraint());
-        validators.add(new NotNullConstraint());
-        validators.add(new PatternConstraint());
-        validators.add(new RangeConstraint());
-        validators.add(new SizeConstraint());
     }
-    public static void validate(final Object obj) throws ValidateException {
-        try {
-            boolean flag = true;
-            for (int i = 0; i < validators.size(); i++) {
-                try {
-                    validators.get(i).validate(obj);
-                } catch (ValidateException e){
-                    log.log(Level.SEVERE , e.getMessage());
-                    flag = false;
-                }
+    public static void validate(final Object obj) throws ValidateException ,
+            NoSuchMethodException , InstantiationException , IllegalAccessException , InvocationTargetException {
+        List<Field> fields = new LinkedList<Field>();
+        fields = Arrays.asList(obj.getClass().getDeclaredFields());
+        for(int i = 0; i < fields.size(); i++) {
+            final Field field = fields.get(i);
+            for(Annotation annotation : field.getAnnotations()) {
+                validate(obj , field , annotation);
             }
-            if(!flag) {
-                throw new ValidateException(obj.getClass().getName());
-            }
-        } catch (IllegalAccessException e){
-            log.log(Level.SEVERE , e.getMessage());
+        }
+    }
+    private static void validate(final Object obj , final Field field , final Annotation annotation) throws
+            ValidateException , InvocationTargetException , NoSuchMethodException , InstantiationException ,
+            IllegalAccessException {
+        Class<? extends Annotation> annotationType = annotation.annotationType();
+        if (annotationType.isAnnotationPresent(ValidatedBy.class)) {
+            ValidatedBy validatedBy = annotation.annotationType().getAnnotation(ValidatedBy.class);
+            Validator validator = getInstance(validatedBy , annotation);
+            validator.validate(obj , field);
         }
 
+        //recursion for external annotations validating
+        final Annotation[] annotations = annotationType.getAnnotations();
+        for(Annotation annotation1 : annotations) {
+            validate(obj , field , annotation1);
+        }
+
+    }
+    private static Validator getInstance(final ValidatedBy validatedBy , final Annotation annotation) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class validator = validatedBy.value();
+        Constructor<?> constructor = validator.getConstructor(Annotation.class);
+        Validator instance = (Validator) constructor.newInstance(annotation);
+        return instance;
     }
 }
