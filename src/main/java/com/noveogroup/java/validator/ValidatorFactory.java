@@ -37,8 +37,13 @@ public class ValidatorFactory {
     private static void validate(final Object obj , final Field field , final Annotation annotation) throws
             ValidateException , InvocationTargetException , NoSuchMethodException , InstantiationException ,
             IllegalAccessException {
+        /** flag is true when the last validated annotation was ValidatedBy and you want to go in the next child of
+         * recursive tree
+         */
+        boolean flag = false;
         Class<? extends Annotation> annotationType = annotation.annotationType();
         if (annotationType.isAnnotationPresent(ValidatedBy.class)) {
+            flag = true;
             ValidatedBy validatedBy = annotation.annotationType().getAnnotation(ValidatedBy.class);
             Validator validator = getInstance(validatedBy , annotation);
             validator.validate(obj , field);
@@ -46,8 +51,10 @@ public class ValidatorFactory {
 
         //recursion for external annotations validating
         final Annotation[] annotations = annotationType.getAnnotations();
-        for(Annotation annotation1 : annotations) {
-            validate(obj , field , annotation1);
+        if(flag) {
+            for(Annotation annotation1 : annotations) {
+                validate(obj , field , annotation1);
+            }
         }
 
     }
