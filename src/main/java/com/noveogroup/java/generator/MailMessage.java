@@ -30,8 +30,5 @@ public class MailMessage  implements Serializable {
     private String bcc;
 
     public MailMessage() {
-
     }
-
-
 }

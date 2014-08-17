@@ -29,13 +29,16 @@ public class Serializer {
         }
         else {
             oos.writeObject(obj);
+//            oos.close();
         }
     }
     public Object load() throws IOException , ClassNotFoundException {
         if(ois == null){
             throw new IOException("ObjectInputStream is null");
         }
-        return  ois.readObject();
+        Object result = ois.readObject();
+//        ois.close();
+        return  result;
     }
 
     public void close() {

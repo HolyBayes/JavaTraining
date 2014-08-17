@@ -47,7 +47,9 @@ class Worker implements Runnable {
                 }
             } catch (ValidateException e) {
                 incorrect++;
-//                log.log(Level.SEVERE , e.getMessage());
+                log.log(Level.SEVERE , e.getMessage() +
+                        "\n In Field : " + e.getFieldName() +
+                        "\n With value :" + e.getFieldValue() , e);
             } catch (Exception e) {
                 log.log(Level.SEVERE , e.getMessage());
             }
