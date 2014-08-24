@@ -20,9 +20,10 @@ public class MailMessage  implements Serializable {
 
     @NotNull
     @Pattern(regexp = ".+\\.(com|ru)")
+    @Size(max = 10)
     private String to;
 
-    @Size(min = 1 , max = 10)
+    @Size(max = 10)
     private String cc;
 
     @Size(min = 1)
