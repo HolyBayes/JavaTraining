@@ -1,10 +1,11 @@
 package com.noveogroup.java.my_concurrency;
 
 /**
- * Simple blocking queue interface with only 3 methods
+ * Simple blocking queue interface with only 3 methods.
+ * @param <T> is queue's element type
  */
 public interface SimpleBlockQueue<T> {
-    public T take() throws InterruptedException;
-    public void put(final T value) throws InterruptedException;
-    public int size();
+    T take() throws InterruptedException;
+    void put(final T value) throws InterruptedException;
+    int size();
 }

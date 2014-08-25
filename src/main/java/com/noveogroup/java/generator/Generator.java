@@ -22,10 +22,11 @@ public class Generator {
      */
     public static final int MAX_TIME_DEVIATION = Integer.MAX_VALUE;
 
-    private static final char[] ALPHA = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', '_', '-', '.', };
+    private static final char[] ALPHA = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+        'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3',
+        '4', '5', '6', '7', '8', '9', '_', '-', '.', };
 
     private static final String[] DOMAIN_END = new String[]{".com", ".ru", ".рф", "org"};
 
@@ -135,9 +136,6 @@ public class Generator {
         return nextWord(localLen) + '@' + nextWord(domainLen) + domainEnd;
     }
 
-    public String nextEmail(int min , int max , String domain) {
-
-    }
     /**
      * Generate {@link ${artifactId}.util.Date} from past or future.
      * <p>
