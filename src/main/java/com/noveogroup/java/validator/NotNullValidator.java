@@ -15,7 +15,7 @@ public class NotNullValidator implements Validator {
     public void validate(final Object object , final Field field) throws ValidateException , IllegalAccessException {
         if (object == null) {
             field.setAccessible(true);
-            throw new ValidateException ("@NotNull constraint" , field.getName() , field.get(object));
+            throw new ValidateException("@NotNull constraint" , field.getName() , field.get(object));
         }
 
     }
