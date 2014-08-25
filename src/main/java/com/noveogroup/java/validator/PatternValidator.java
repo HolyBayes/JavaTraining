@@ -9,19 +9,19 @@ import java.util.regex.Matcher;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * -//- (see NotBlankConstraint)
+ * -//- (see NotBlankConstraint).
  * @author artem ryzhikov
  */
 public class PatternValidator implements Validator {
-    private final static Logger LOG = Logger.getLogger(PatternValidator.class.getName());
+    private static final Logger LOG = Logger.getLogger(PatternValidator.class.getName());
     private final Pattern annotation;
+    public PatternValidator(final Annotation annotation) {
+        this.annotation = (Pattern) annotation;
+    }
     public static boolean checkWithRegExp(final String regexp , final String userNameString) {
         final java.util.regex.Pattern p = java.util.regex.Pattern.compile(regexp);
         final Matcher m = p.matcher(userNameString);
         return m.matches();
-    }
-    public PatternValidator(final Annotation annotation) {
-        this.annotation = (Pattern) annotation;
     }
     @Override
     public void validate(final Object obj , final Field field) throws ValidateException {
@@ -31,12 +31,12 @@ public class PatternValidator implements Validator {
             try {
                 value = field.get(obj).toString();
             } catch (IllegalAccessException e) {
-                LOG.log(Level.FINE, "IllegalAccessException in Object" +
-                        obj.getClass().getName() +
-                        "\n in field" +
-                        field.getName());
+                LOG.log(Level.FINE, "IllegalAccessException in Object"
+                        + obj.getClass().getName()
+                        + "\n in field"
+                        + field.getName());
             }
-            String message = "@Pattern constraint ";
+            final String message = "@Pattern constraint ";
             try {
                 if (!checkWithRegExp(field.getAnnotation(Pattern.class).regexp(),
                         (String) field.get(obj))) {
@@ -44,13 +44,13 @@ public class PatternValidator implements Validator {
                 }
             } catch (PatternSyntaxException e) {
                 try {
-                    throw new ValidateException(message, field.getName(), field.get(obj));
-                } catch (IllegalAccessException iae){
-
+                    throw new ValidateException(message , field.getName() , field.get(obj));
+                } catch (IllegalAccessException iae) {
+                    LOG.log(Level.SEVERE , "IllegalAccessException in field.get(obj)" , e);
                }
 
             } catch (IllegalAccessException e) {
-                LOG.log(Level.SEVERE, "IllegalAccessException in RegExp:", e);
+                LOG.log(Level.SEVERE , "IllegalAccessException in RegExp:" , e);
             }
 
 

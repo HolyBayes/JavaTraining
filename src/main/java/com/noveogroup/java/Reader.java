@@ -1,7 +1,5 @@
 package com.noveogroup.java;
 
-
-import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
 import com.noveogroup.java.serialize.Serializer;
 
@@ -11,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * blablabla.
  * @author artem ryzhikov
  */
 class Reader implements Runnable {
@@ -50,7 +49,7 @@ class Reader implements Runnable {
             }
         }
     }
-    private void stop(){
+    private void stop() {
         System.out.print("[Reader] finished\n");
         log.info("[Reader] finished");
         this.flag.set(false);

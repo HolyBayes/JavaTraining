@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * No comments =)
+ * No comments =).
  * @author artem ryzhikov
+ * @param <T> is queue's element type
  */
 public class MyBlockingQueue<T> implements SimpleBlockQueue<T> {
 

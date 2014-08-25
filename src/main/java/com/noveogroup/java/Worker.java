@@ -1,15 +1,11 @@
 package com.noveogroup.java;
 
-import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
-import com.noveogroup.java.serialize.Serializer;
 import com.noveogroup.java.validator.ValidateException;
 import com.noveogroup.java.validator.ValidatorFactory;
-import sun.security.validator.ValidatorException;
 
-import java.util.NoSuchElementException;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,16 +16,20 @@ import java.util.logging.Logger;
 class Worker implements Runnable {
     private final SimpleBlockQueue<Object> queue;
     private AtomicBoolean flag;
+    private AtomicInteger valid;
+    private AtomicInteger invalid;
     private Logger log = Logger.getLogger(Worker.class.getName());
-    private int correct;
-    private int incorrect;
     private final ValidatorFactory validatorFactory = new ValidatorFactory();
 
-    public Worker(final SimpleBlockQueue<Object> queue ,
-                  final AtomicBoolean flag
+    public Worker(final SimpleBlockQueue<Object> queue,
+                  final AtomicBoolean flag,
+                  AtomicInteger valid,
+                  AtomicInteger invalid
     ) {
         this.queue = queue;
         this.flag = flag;
+        this.valid = valid;
+        this.invalid = invalid;
     }
 
     @Override
@@ -39,23 +39,20 @@ class Worker implements Runnable {
                 || (this.flag.get())) {
             try {
                 if (this.queue.size() != 0) {
-                    System.out.format("%d %d \n" , correct , incorrect);
                     Object obj;
                     obj = this.queue.take();
                     validatorFactory.validate(obj);
-                    correct++;
+                    valid.set(valid.get() + 1);
                 }
             } catch (ValidateException e) {
-                incorrect++;
-                log.log(Level.SEVERE , e.getMessage() +
-                        "\n In Field : " + e.getFieldName() +
-                        "\n With value :" + e.getFieldValue() , e);
+                invalid.set(invalid.get() + 1);
+                log.log(Level.SEVERE , e.getMessage()
+                        + "\n In Field : " + e.getFieldName()
+                        + "\n With value :" + e.getFieldValue() , e);
             } catch (Exception e) {
                 log.log(Level.SEVERE , e.getMessage());
             }
         }
-//        System.out.format("Correct:%d \n Incorrect:%d" , correct , incorrect);
-        log.info("Correct: " + correct + "\n Incorrect: " + incorrect);
-        System.out.print("[Worker] finished\n");
+        log.info(Thread.currentThread().getName() + " finished");
     }
 }

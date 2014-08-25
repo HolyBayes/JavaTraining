@@ -2,16 +2,13 @@ package com.noveogroup.java.validator;
 
 
 import java.lang.annotation.Annotation;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.*;
 
 /**
+ *
  * -//- (see NotBlankConstraint)
  * @author artem ryzhikov
  */
@@ -25,14 +22,13 @@ public class RangeValidator implements Validator {
     }
 
     @Override
-
     public void validate(final Object obj , final Field field)
             throws ValidateException {
         try {
             final int min = annotation.min();
-            final int max = annotation.min();
+            final int max = annotation.max();
             field.setAccessible(true);
-            Object value =field.get(obj);
+            final Object value = field.get(obj);
 
             if (!(value instanceof Integer)) {
                 throw new IllegalAccessException();

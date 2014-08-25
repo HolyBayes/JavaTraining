@@ -1,63 +1,51 @@
 package com.noveogroup.java.serialize;
 
 import java.io.*;
-import java.util.List;
-import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * blablabla
+ * blablabla.
  * @author artem ryzhikov
  */
 public class Serializer {
 
-//    private ObjectInputStream ois;
-//    private ObjectOutputStream oos;
-    private final File input;
-    private final File output;
-    ObjectInputStream ois;
-    private final static Logger LOG = Logger.getLogger(Serializer.class.getName());
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
 
-    public Serializer(final File input , final File output) {
+    private static final Logger LOG = Logger.getLogger(Serializer.class.getName());
 
-        this.input = input;
-        this.output = output;try {
+    public Serializer(final File input, final File output) {
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(output));
             ois = new ObjectInputStream(new FileInputStream(input));
-        } catch (FileNotFoundException e) {
-            LOG.log(Level.SEVERE , e.getMessage() , e);
         } catch (IOException e) {
-            LOG.log(Level.SEVERE , e.getMessage() , e);
+            LOG.log(Level.SEVERE, "IOException Serializer() :", e);
         }
     }
-    public void store(final Queue<Object> obj) throws IOException {
-        FileOutputStream fos = new FileOutputStream(output , true);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        try {
-            for(int i = 0 , limit = obj.size(); i < limit; i++) {
-                oos.writeObject(obj.poll());
-            }
-        } finally {
-            if (oos !=null) {
-                oos.close();
-            }
-            if (fos != null) {
-                fos.close();
-            }
+    public void store(final Object obj) throws IOException {
+        if (oos == null) {
+            throw new IOException("ObjectOutputStream is null");
+        }
+        else {
+            oos.writeObject(obj);
         }
     }
     public Object load() throws IOException , ClassNotFoundException {
-        Object obj;
-        obj = ois.readObject();
-        return  ois.readObject();
+        if (ois == null) {
+            throw new IOException("ObjectInputStream is null");
+        }
+        Object result = ois.readObject();
+        return  result;
     }
+
     public void close() {
         try {
-            if(ois != null) {
-                ois.close();
-            }
+            ois.close();
+            oos.close();
         } catch (IOException e) {
-            LOG.log(Level.SEVERE , e.getMessage() , e);
+            LOG.log(Level.SEVERE, "IOException in ObjectStream.close(): ", e);
         }
     }
+
 }
