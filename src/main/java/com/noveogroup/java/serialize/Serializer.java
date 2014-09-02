@@ -1,20 +1,15 @@
 package com.noveogroup.java.serialize;
-
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * blablabla.
  * @author artem ryzhikov
  */
 public class Serializer {
-
+    private static final Logger LOG = Logger.getLogger(Serializer.class.getName());
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
-
-    private static final Logger LOG = Logger.getLogger(Serializer.class.getName());
-
     public Serializer(final File input, final File output) {
         try {
             oos = new ObjectOutputStream(new FileOutputStream(output));
@@ -35,9 +30,8 @@ public class Serializer {
             throw new IOException("ObjectInputStream is null");
         }
         final Object result = ois.readObject();
-        return  result;
+        return result;
     }
-
     public void close() {
         try {
             ois.close();
@@ -46,5 +40,4 @@ public class Serializer {
             LOG.log(Level.SEVERE, "IOException in ObjectStream.close(): ", e);
         }
     }
-
 }

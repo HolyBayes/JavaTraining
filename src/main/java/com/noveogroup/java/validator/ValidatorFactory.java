@@ -4,11 +4,11 @@ package com.noveogroup.java.validator;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -20,12 +20,7 @@ public class ValidatorFactory {
     private static List<Validator> validators = new ArrayList<Validator>();
     private static Logger log = Logger.getLogger(ValidatorFactory.class.getName());
 
-<<<<<<< HEAD
     public static void validate(final Object obj) throws ValidateException {
-=======
-    public static void validate(final Object obj) throws ValidateException ,
-            NoSuchMethodException , InstantiationException , IllegalAccessException , InvocationTargetException {
->>>>>>> 5d0796e070f3d7a5f9007751821bd3d21c94ffea
         List<Field> fields = new LinkedList<Field>();
         fields = Arrays.asList(obj.getClass().getDeclaredFields());
         for (int i = 0; i < fields.size(); i++) {
@@ -45,7 +40,6 @@ public class ValidatorFactory {
         if (annotationType.isAnnotationPresent(ValidatedBy.class)) {
             flag = true;
             final ValidatedBy validatedBy
-<<<<<<< HEAD
                 = annotation.annotationType().getAnnotation(ValidatedBy.class);
             final Validator validator = getInstance(validatedBy , annotation);
             try {
@@ -53,11 +47,6 @@ public class ValidatorFactory {
             } catch (IllegalAccessException iae) {
                 log.log(Level.SEVERE, iae.getMessage(), iae);
             }
-=======
-                    = annotation.annotationType().getAnnotation(ValidatedBy.class);
-            final Validator validator = getInstance(validatedBy , annotation);
-            validator.validate(obj , field);
->>>>>>> 5d0796e070f3d7a5f9007751821bd3d21c94ffea
         }
 
         //recursion for external annotations validating
@@ -69,7 +58,6 @@ public class ValidatorFactory {
         }
 
     }
-<<<<<<< HEAD
     private static Validator getInstance(final ValidatedBy validatedBy , final Annotation annotation)
     {
         Validator instance = null;
@@ -80,13 +68,6 @@ public class ValidatorFactory {
         } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage(), e);
         }
-=======
-    private static Validator getInstance(final ValidatedBy validatedBy , final Annotation annotation) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException, InstantiationException {
-        final Class validator = validatedBy.value();
-        final Constructor<?> constructor = validator.getConstructor(Annotation.class);
-        final Validator instance = (Validator) constructor.newInstance(annotation);
->>>>>>> 5d0796e070f3d7a5f9007751821bd3d21c94ffea
         return instance;
     }
 }

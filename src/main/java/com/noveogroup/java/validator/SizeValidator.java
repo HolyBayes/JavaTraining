@@ -37,7 +37,7 @@ public class SizeValidator implements Validator {
         try {
             final int min = annotation.min();
             final int max = annotation.max();
-                    field.setAccessible(true);
+            field.setAccessible(true);
             boolean flag = false;
             final Object value = field.get(obj);
 

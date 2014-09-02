@@ -23,6 +23,7 @@ com/noveogroup/java/generator/Pojo1.class
 com/noveogroup/java/validator/DateValidator.class
 com/noveogroup/java/my_concurrency/SimpleBlockQueue.class
 com/noveogroup/java/validator/PatternValidator.class
+com/noveogroup/java/MainThread.class
 com/noveogroup/java/validator/ValidatedBy.class
 com/noveogroup/java/validator/ValidateException.class
 com/noveogroup/java/generator/PojoFactory.class

@@ -43,5 +43,4 @@ public class MyBlockingQueue<T> implements SimpleBlockQueue<T> {
         }
         return this.queue.remove(0);
     }
-
 }
