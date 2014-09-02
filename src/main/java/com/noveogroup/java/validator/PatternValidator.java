@@ -1,6 +1,7 @@
 package com.noveogroup.java.validator;
 
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -21,8 +21,8 @@ import java.util.logging.Logger;
  * @author artem ryzhikov
  */
 
-class Main {
-    private static final Properties prop = new Properties();
+final class Main {
+    private static final Properties PROP = new Properties();
     private static final String PROP_PATH = "src/main/resources/config.properties";
     private static String input;
     private static String output;
@@ -31,20 +31,24 @@ class Main {
     private static Integer workerCount = 0;
     private static final int[] COUNTS = {5000, 5, 3000, 7};
     private static final String[] CLASS_NAMES = {"com.noveogroup.java.generator.Pojo1",
-            "com.noveogroup.java.generator.Pojo2" };
-    private static final Logger log = Logger.getLogger(Main.class.getName());
+        "com.noveogroup.java.generator.Pojo2", };
+    private static final Logger LOG = Logger.getLogger(Main.class.getName());
+
+    private Main() {
+
+    }
 
     public static void main(final String[] args) {
         try {
-            FileInputStream is = new FileInputStream(PROP_PATH);
-            prop.load(is);
-            input = prop.getProperty("INPUT");
-            output = prop.getProperty("OUTPUT");
-            mode = prop.getProperty("MODE");
-            queueSize = Integer.parseInt(prop.getProperty("QUEUE_SIZE"));
-            workerCount = Integer.parseInt(prop.getProperty("WORKER_COUNT"));
+            final FileInputStream is = new FileInputStream(PROP_PATH);
+            PROP.load(is);
+            input = PROP.getProperty("INPUT");
+            output = PROP.getProperty("OUTPUT");
+            mode = PROP.getProperty("MODE");
+            queueSize = Integer.parseInt(PROP.getProperty("QUEUE_SIZE"));
+            workerCount = Integer.parseInt(PROP.getProperty("WORKER_COUNT"));
         } catch (IOException ioe) {
-            log.log(Level.SEVERE, ioe.getMessage(), ioe);
+            LOG.log(Level.SEVERE, ioe.getMessage(), ioe);
         }
         final File inputFile = new File(input);
         final File outputFile = new File(output);
@@ -70,35 +74,14 @@ class Main {
             }
         } catch (IOException e) {
             final String message = "Wrong output";
-            log.log(Level.SEVERE, message, e);
-            log.info(message + e.getMessage());
+            LOG.log(Level.SEVERE, message, e);
+            LOG.info(message + e.getMessage());
 
         }
-        final SimpleBlockQueue<Object> queue;
-        if (intMode == 0) {
-            queue = new BlockingQueue<Object>(queueSize);
-        } else {
-            queue = new MyBlockingQueue<Object>(queueSize);
-        }
-        final AtomicInteger valid = new AtomicInteger();
-        valid.set(0);
-        final AtomicInteger invalid = new AtomicInteger();
-        invalid.set(0);
-        final AtomicBoolean flag = new AtomicBoolean(false);
-        final Reader reader = new Reader(queue , serializer , flag);
-        final Worker worker = new Worker(queue , flag, valid, invalid);
-        final Thread readThread = new Thread(reader);
-        readThread.start();
-        final Thread[] workers = new Thread[workerCount];
-        for (int i = 0; i < workerCount; i++) {
-            workers[i] = new Thread(worker);
-            workers[i].start();
-            try {
-                workers[i].join();
-            } catch (InterruptedException ie) {
-               log.log(Level.SEVERE, ie.getMessage(), ie);
-            }
-        }
-        log.info("Valid: " + valid.get() + "\nInvalid: " + invalid.get());
+        MainThread.run(intMode,
+              serializer,
+              queueSize,
+              LOG,
+              workerCount);
     }
 }

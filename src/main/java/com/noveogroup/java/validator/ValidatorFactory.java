@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * one static method validate().
  * @author artem ryzhikov
  */
-public class ValidatorFactory {
+public final class ValidatorFactory {
     private static List<Validator> validators = new ArrayList<Validator>();
     private static Logger log = Logger.getLogger(ValidatorFactory.class.getName());
 

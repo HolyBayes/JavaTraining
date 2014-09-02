@@ -10,10 +10,10 @@ import java.util.logging.Logger;
  */
 public class Serializer {
 
+    private static final Logger LOG = Logger.getLogger(Serializer.class.getName());
+
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
-
-    private static final Logger LOG = Logger.getLogger(Serializer.class.getName());
 
     public Serializer(final File input, final File output) {
         try {
