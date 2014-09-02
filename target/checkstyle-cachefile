@@ -1,15 +1,17 @@
-#Tue Sep 02 12:12:39 NOVT 2014
+#Tue Sep 02 12:33:53 NOVT 2014
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/Reader.java=1409590152000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/Validator.java=1409589855000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/ValidatedBy.java=1408636639000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/Date.java=1409146708000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/RangeValidator.java=1409589806000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/Pattern.java=1408636639000
+/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/generator/Pojo1.java=1409635406000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/ValidateException.java=1409146654000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/Worker.java=1409588133000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/generator/Pojo2.java=1409634546000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/NotNullValidator.java=1408985472000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/my_concurrency/BlockingQueue.java=1408983696000
+/home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/serialize/Serializer.java=1409635470000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/PatternValidator.java=1409634379000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/my_concurrency/MyBlockingQueue.java=1409634245000
 /home/artem/IdeaProjects/JavaTraining/src/main/java/com/noveogroup/java/validator/DateValidator.java=1409216200000

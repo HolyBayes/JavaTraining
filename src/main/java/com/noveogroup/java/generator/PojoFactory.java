@@ -227,7 +227,7 @@ public class PojoFactory {
     private int getMinSize(final Field field) {
         final List<Integer> mins = new LinkedList<Integer>();
         mins.add(0);
-        if(field.isAnnotationPresent(Size.class)) {
+        if (field.isAnnotationPresent(Size.class)) {
             mins.add(field.getAnnotation(Size.class).min());
         }
         if (field.isAnnotationPresent(Pattern.class)) {
