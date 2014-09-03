@@ -44,7 +44,6 @@ public class PatternValidator implements Validator {
           LOG.log(Level.SEVERE , "IllegalAccessException in RegExp:" , e);
        }
 
-
     }
 }
 

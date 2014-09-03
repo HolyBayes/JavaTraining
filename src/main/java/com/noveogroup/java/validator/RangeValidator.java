@@ -9,7 +9,11 @@ import java.util.logging.Logger;
 
 /**
  *
+<<<<<<< HEAD
  * -//- (see NotBlankConstraint).
+=======
+ * -//- (see NotBlankConstraint)
+>>>>>>> 5d0796e070f3d7a5f9007751821bd3d21c94ffea
  * @author artem ryzhikov
  */
 

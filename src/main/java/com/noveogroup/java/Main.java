@@ -22,6 +22,7 @@ import java.util.logging.Logger;
  */
 
 class Main {
+
     private static final Properties prop = new Properties();
     private static final String PROP_PATH = "src/main/resources/config.properties";
     private static String input;
@@ -72,7 +73,6 @@ class Main {
             final String message = "Wrong output";
             log.log(Level.SEVERE, message, e);
             log.info(message + e.getMessage());
-
         }
         final SimpleBlockQueue<Object> queue;
         if (intMode == 0) {
@@ -96,6 +96,7 @@ class Main {
             try {
                 workers[i].join();
             } catch (InterruptedException ie) {
+
                log.log(Level.SEVERE, ie.getMessage(), ie);
             }
         }

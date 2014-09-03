@@ -15,6 +15,7 @@ public class Pojo1 implements Serializable {
     private static final int MAX = 15;
     @NotBlank
     @Pattern(regexp = ".+\\.(com|ru)")
+
     private static final String from = null;
     @Range(min = MIN, max = MAX)
     private static final int value = 0;
