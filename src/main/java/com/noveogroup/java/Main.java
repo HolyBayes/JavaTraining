@@ -1,6 +1,4 @@
-
 package com.noveogroup.java;
-
 
 import com.noveogroup.java.generator.PojoFactory;
 import com.noveogroup.java.my_concurrency.BlockingQueue;
@@ -8,37 +6,52 @@ import com.noveogroup.java.my_concurrency.MyBlockingQueue;
 import com.noveogroup.java.my_concurrency.SimpleBlockQueue;
 import com.noveogroup.java.serialize.Serializer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Generating -> Serialization -> Deserialization -> Validate.
  * @author artem ryzhikov
  */
 
 class Main {
-    final static String INPUT = "temp.out";
-    final static String OUTPUT = "temp.out";
-    final static String MODE = "0";
-    final static int QUEUE_SIZE = 1000;
-    final static int BUFFER_SIZE = 1000;
-    final static int[] COUNTS = {50000, 5};
-    final static String[] CLASS_NAMES = {"com.noveogroup.java.generator.MailMessage"};
-    final static Logger LOG = Logger.getLogger(Main.class.getName());
+    private static final Properties prop = new Properties();
+    private static final String PROP_PATH = "src/main/resources/config.properties";
+    private static String input;
+    private static String output;
+    private static String mode;
+    private static Integer queueSize = 0;
+    private static Integer workerCount = 0;
+    private static final int[] COUNTS = {5000, 5, 3000, 7};
+    private static final String[] CLASS_NAMES = {"com.noveogroup.java.generator.Pojo1",
+            "com.noveogroup.java.generator.Pojo2" };
+    private static final Logger log = Logger.getLogger(Main.class.getName());
 
-    public static void main(String[] args) {
-        final File INPUT_FILE = new File(INPUT);
-        final File OUTPUT_FILE = new File(OUTPUT);
-        final int INT_MODE = Integer.parseInt(MODE);
-        final Map<String, Integer> correct = new HashMap<>();
-        final Map<String, Integer> incorrect = new HashMap<>();
-        for (int i = 0, limit = CLASS_NAMES.length; i < limit; i++) {
+    public static void main(final String[] args) {
+        try {
+            FileInputStream is = new FileInputStream(PROP_PATH);
+            prop.load(is);
+            input = prop.getProperty("INPUT");
+            output = prop.getProperty("OUTPUT");
+            mode = prop.getProperty("MODE");
+            queueSize = Integer.parseInt(prop.getProperty("QUEUE_SIZE"));
+            workerCount = Integer.parseInt(prop.getProperty("WORKER_COUNT"));
+        } catch (IOException ioe) {
+            log.log(Level.SEVERE, ioe.getMessage(), ioe);
+        }
+        final File inputFile = new File(input);
+        final File outputFile = new File(output);
+        final int intMode = Integer.parseInt(mode);
+        final Map<String, Integer> correct = new HashMap<String , Integer>();
+        final Map<String, Integer> incorrect = new HashMap<String , Integer>();
+        for (int i = 0; i < CLASS_NAMES.length; i++) {
             correct.put(CLASS_NAMES[i], COUNTS[2 * i]);
             incorrect.put(CLASS_NAMES[i], COUNTS[2 * i + 1]);
         }
@@ -46,38 +59,46 @@ class Main {
         final PojoFactory pojoFactory = new PojoFactory();
         final Queue<Object> objects = pojoFactory.gen(correct, true);
         objects.addAll(pojoFactory.gen(incorrect, false));
-        final Serializer SERIALIZER = new Serializer(INPUT_FILE, OUTPUT_FILE);
+        final Serializer serializer = new Serializer(inputFile , outputFile);
 
-//        try {
-        int limit = objects.size();
-        int i = 0;
-        while (i < limit) {
-            // temporary buffer's queue
-            Queue<Object> temp = new LinkedList<>();
-            for (int j = 0; (j < BUFFER_SIZE) ||
-                    (i < limit); j++) {
-                temp.offer(objects.poll());
+        try {
+            final int limit = objects.size();
+            int i = 0;
+            while (i < limit) {
                 i++;
+                serializer.store(objects.poll());
+            }
+        } catch (IOException e) {
+            final String message = "Wrong output";
+            log.log(Level.SEVERE, message, e);
+            log.info(message + e.getMessage());
+
+        }
+        final SimpleBlockQueue<Object> queue;
+        if (intMode == 0) {
+            queue = new BlockingQueue<Object>(queueSize);
+        } else {
+            queue = new MyBlockingQueue<Object>(queueSize);
+        }
+        final AtomicInteger valid = new AtomicInteger();
+        valid.set(0);
+        final AtomicInteger invalid = new AtomicInteger();
+        invalid.set(0);
+        final AtomicBoolean flag = new AtomicBoolean(false);
+        final Reader reader = new Reader(queue , serializer , flag);
+        final Worker worker = new Worker(queue , flag, valid, invalid);
+        final Thread readThread = new Thread(reader);
+        readThread.start();
+        final Thread[] workers = new Thread[workerCount];
+        for (int i = 0; i < workerCount; i++) {
+            workers[i] = new Thread(worker);
+            workers[i].start();
+            try {
+                workers[i].join();
+            } catch (InterruptedException ie) {
+               log.log(Level.SEVERE, ie.getMessage(), ie);
             }
         }
-//        } catch (IOException e) {
-//            String message = "Wrong output";
-//            LOG.log(Level.SEVERE, message, e);
-//            System.out.print(message + e.getMessage());
-//            LOG.info(message + e.getMessage());
-//
-//        }
-        final SimpleBlockQueue<Object> QUEUE;
-        if (INT_MODE == 0) {
-            QUEUE = new BlockingQueue<Object>(QUEUE_SIZE);
-        } else {
-            QUEUE = new MyBlockingQueue<Object>(QUEUE_SIZE);
-        }
-        final AtomicBoolean FLAG = new AtomicBoolean(false);
-        final Reader READER = new Reader(QUEUE, SERIALIZER, FLAG);
-        final Worker WORKER = new Worker(QUEUE, FLAG);
-        new Thread(READER).start();
-        new Thread(WORKER).start();
-
+        log.info("Valid: " + valid.get() + "\nInvalid: " + invalid.get());
     }
 }
