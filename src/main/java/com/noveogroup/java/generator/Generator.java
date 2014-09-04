@@ -135,6 +135,9 @@ public class Generator {
         return nextWord(localLen) + '@' + nextWord(domainLen) + domainEnd;
     }
 
+    public String nextEmail(int min , int max , String domain) {
+
+    }
     /**
      * Generate {@link ${artifactId}.util.Date} from past or future.
      * <p>

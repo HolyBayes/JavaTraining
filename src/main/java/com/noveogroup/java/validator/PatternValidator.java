@@ -13,8 +13,8 @@ import java.util.regex.PatternSyntaxException;
  */
 public class PatternValidator implements Validator {
     private final static Logger LOG = Logger.getLogger(PatternValidator.class.getName());
-
-    private boolean checkWithRegExp(final String regexp , final String userNameString) {
+    private final Pattern annotation;
+    public static boolean checkWithRegExp(final String regexp , final String userNameString) {
         final java.util.regex.Pattern p = java.util.regex.Pattern.compile(regexp);
         final Matcher m = p.matcher(userNameString);
         return m.matches();

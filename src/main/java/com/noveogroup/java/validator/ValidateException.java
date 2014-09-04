@@ -24,5 +24,8 @@ public class ValidateException extends Exception {
     public void setFieldValue(final Object fieldValue) {
         this.fieldValue = fieldValue;
     }
-
+    @Override
+    public void printStackTrace(){
+        super.printStackTrace();
+    }
 }
